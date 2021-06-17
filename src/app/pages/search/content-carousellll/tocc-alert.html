@@ -1,0 +1,24 @@
+<div class="py-4">
+<h2 mat-dialog-title class="text-center font-w5 text-secondary">Table of Contents Alerts</h2>
+<div mat-dialog-content class="pb-2">
+    <p class="text-center mb-0">To receive news and publication updates, enter your email address in </p>
+    <p class="text-center">the box below</p>
+    <div class="input-group mb-1 d-flex align-items-center">
+        <input type="text" class="form-control border-redi form-controls input-size" [(ngModel)]="data.email" (ngModelChange)='changed($event)' name="email" placeholder="enter your email" #emailWithPattern="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required autocomplete="off">
+        <div class="mb-0">
+            <button mat-mini-fab class="ml-n3 z-index-3 bg-color" type="button" [mat-dialog-close]="data.email" [disabled]="emailWithPattern.invalid"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+        </div>
+    </div>
+</div>
+<div *ngIf="(emailWithPattern.touched && emailWithPattern.invalid) || (emailWithPattern.invalid && emailWithPattern.dirty); else checked">
+    <p *ngIf="emailWithPattern.errors?.required" class="mx-3 font-s mb-0">
+        You must enter an email address.
+    </p>
+    <p *ngIf="emailWithPattern.errors?.pattern" class="mx-3 font-s mb-0">
+        Invalid email address.
+    </p>
+</div>
+<ng-template #checked>
+    <p class="mx-3 font-s mb-0" [ngClass]="{'warned':model === 'Available'}">{{model}}</p>
+</ng-template>
+</div>

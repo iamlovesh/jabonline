@@ -1,0 +1,105 @@
+.bg-infor {
+    background-color: #017AAF;
+    color: white;
+}
+
+.dispcss{
+    cursor: pointer;
+}
+.bg-warner{
+    background-color: #FFD803;
+    color: black;
+}
+
+.bg-successer{
+    background-color: #278A8A;
+    color: white;
+}
+
+.bg-color{
+    background-color: #2F7181;
+}
+
+.color{
+    color: #2F7181;
+}
+
+.padding-x35{
+    padding: 0px 3.5rem;
+}
+
+.padding-x32{
+    padding: 0px 3.2rem;
+}
+
+.padding-x46{
+    padding: 0px 4.6rem;
+}
+.padding-x22{
+    padding: 0px 2.2rem;
+}
+
+.letter-10{
+    letter-spacing: 1px;
+}
+
+.letter-13{
+    letter-spacing: 1.2px;
+}
+
+.class { 
+	font-family: Book Antiqua; 
+}
+
+.font-w5{
+    font-weight: 500;
+}
+
+.border-redi{
+    border-radius: 25px 0px 0px 25px;
+    border-right: 0px;
+}
+.z-index-3{
+    z-index: 3;
+}
+
+.input-size{
+        font-size: 14px;
+    padding: 1.15rem 1rem;
+}
+.font-s{
+    font-size: 12px;
+    color: red;
+}
+
+.warned{
+    color: green;
+}
+.active {
+    text-decoration: underline;
+}
+
+.mt-215{
+    margin-top: 2rem!important;
+}
+
+
+@media screen and (min-width: 601px) {
+ h2{
+    margin-bottom: .5rem!important;
+    font-weight: 500!important;
+    line-height: 1.2!important;
+    font-size: 1.5rem!important;
+}
+
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  h2{
+    margin-bottom: .5rem!important;
+    font-weight: 500!important;
+    line-height: 1.2!important;
+    font-size: 1.35rem!important;
+}
+}

@@ -1,0 +1,12 @@
+<div class="d-lg-flex d-block flex-row mb-4"><p class="h6 jab-color">Article Metrics</p>
+<span class="btn-group ml-auto d-grid" *ngFor="let getTotalMetrics of getTotalMetric">
+    
+    <button mat-stroked-button class="mx-2 font-weight-normal py-lg-0 my-2"><span class="font-normal">{{getTotalMetrics.view}}</span> Abstract Views</button>
+    <button mat-stroked-button class="mx-2 font-weight-normal py-lg-0 my-2"><span class="font-normal">{{getTotalMetrics.download}}</span> PDF Downloads</button>
+    <button mat-stroked-button class="mx-2 font-weight-normal py-lg-0 my-2"><span class="font-normal">{{getTotalMetrics.total}}</span> Total Views</button>
+
+</span>
+</div>
+<div style="width:100%;">
+    <canvas id="myChart" width="700" height="250" #metrics></canvas>
+</div>

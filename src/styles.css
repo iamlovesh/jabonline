@@ -1,0 +1,175 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0!important; font-family: Roboto, "Helvetica Neue", sans-serif; }
+button:focus {
+    outline: 1px dotted;
+    outline: 0px auto -webkit-focus-ring-color!important;
+}
+
+.border-curve{
+    border-radius: 25px!important;
+}
+
+:focus {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+/* div{
+  margin-top: 0px!important;
+} */
+
+li{
+  margin-top: 0px!important;
+}
+
+.mt-55{
+
+    padding-top: 8.75rem; 
+}
+
+.second-line-turncate{
+  overflow: hidden;
+text-overflow: ellipsis;
+-webkit-line-clamp: 2;
+display: -webkit-box;
+-webkit-box-orient: vertical;
+}
+
+.bg-back{
+        background-color: #ececec;
+}
+
+.text-colors{
+  color: midnightblue;
+}
+
+
+.make-it-slow {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  transition: box-shadow 0.3s ease-in-out;
+}
+.make-it-slow:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.form-controls:focus {
+    border-color: #bfbfbf!important;
+    box-shadow: 0 0 0 0.2rem rgb(255 255 255 / 25%)!important;
+}
+
+.bg-light-m1{
+  background-color: #e4e4e4!important;
+}
+
+.bg-light-m{
+  background-color: #f3f3f3!important;
+}
+snack-bar-container{
+  background-color:#017aaf!important;
+  color: white!important;
+}
+.mat-simple-snackbar-action {
+   color: #FFD803;
+}
+
+.font-normal{
+font-weight: 500!important;
+}
+
+.font18{
+  font-size: 18px!important;
+}
+.font13{
+  font-size: 13px!important;
+}
+.l-height-125{
+  line-height: 1.35!important;
+}
+
+.mr-n15, .mx-n15 {
+    margin-right: -4.2rem!important;
+}
+
+.mt-n45{
+  margin-top: -1.5rem!important;
+}
+
+.mt-45{
+  margin-top: 2rem!important;
+}
+
+.w-13{
+  width: 12%!important;
+}
+
+.bg-jab{
+  background-color: #2F7181!important
+}
+
+.jab-color{
+  color: #2F7181!important;
+}
+
+.d-content{
+  display: contents!important;
+}
+
+.cursor {
+  cursor: pointer!important;
+}
+.plx-wrapping-print-link {
+    margin-top: -1rem!important;
+}
+
+img[src*=ckfinder] {
+  height: 95px!important;
+  width: 195px;
+}
+table{
+  overflow-x:auto!important;
+  display: block;
+}
+
+table[cellpadding][cellspacing][width] {
+    margin: 1rem 0px;
+}
+
+table[cellpadding][cellspacing][width]>tbody>tr>td[bgcolor="eaeaea"] {
+    overflow-x: auto!important;
+    display: table-cell;
+    width: 100%;
+}
+
+.mat-badge-content {
+    color: #fff;
+    background: #2f7181!important;
+}
+
+
+@media(max-width:991.98px) {
+p{
+    overflow: auto;
+    word-wrap: break-word;
+}
+
+table[frame="hsides"], tbody, td, th, thead, tr {
+  width: 100%;
+    overflow-x: auto;
+}
+.w-13{
+  width: 100%!important;
+}
+table, thead, tbody, th, td, tr {
+    display: block;
+}
+
+.transf{
+    transform: translate3d(0px, 0px, 0px)!important;
+}
+.d-grid{
+  display: block!important;
+  text-align: center!important;
+}
+    p[class="mt-lg-4 mt-0 cursor mb-0"]>p{
+        margin-bottom: 0px!important;
+    }
+}

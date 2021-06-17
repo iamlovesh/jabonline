@@ -1,0 +1,64 @@
+<div class="container-fluid "><nav class="navbar navbar-expand-lg navbar-light bg-lightt fixed-top shadow px-4 borderm" id="navbar">
+  <a class="navbar-brand" routerLink=""  id="logo" ><img src="{{assets+'logoo.png'}}" class="img-responsive img-fluid"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item ">
+        <a mat-button class="nav-link p-2 border-redi" routerLink="" routerLinkActive>Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a mat-button class="nav-link p-2 border-redi"  routerLink="editorialboard" routerLinkActive="active">Editorial Board</a>
+      </li>
+      <li class="nav-item dropdown">
+        <button mat-button [matMenuTriggerFor]="menu" class="nav-link p-2 border-redi">Issues <mat-icon>expand_more</mat-icon></button>
+        <mat-menu #menu="matMenu" class="bg-light mt-lg-3">
+          <button  mat-menu-item routerLink="current" routerLinkActive="active" class="text-dark nav-link">Current Issue</button>
+          <button mat-menu-item routerLink="archives" routerLinkActive="active" class="text-dark nav-link">Archives</button>
+          <button mat-menu-item routerLink="onlinefirst" routerLinkActive="active" class="text-dark nav-link">Online First</button>
+        </mat-menu>
+      </li>
+      <li class="nav-item">
+        <a mat-button class="nav-link p-2 border-redi" routerLink="authorsguideline" routerLinkActive="active">Author's Guideline</a>
+      </li>
+      <li class="nav-item">
+        <a mat-button class="nav-link p-2 border-redi" routerLink="submitManuscript" routerLinkActive="active">Submit Manuscript</a>
+      </li>
+      <li class="nav-item">
+        <a mat-button class="nav-link p-2 border-redi" routerLink="contactUs" routerLinkActive="active">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a mat-button class="nav-link p-2 border-redi"  routerLink="aboutus" routerLinkActive="active">About</a>
+      </li>
+
+      <li class="nav-item align-items-center d-flex">
+        <div class="dropdown mb-4 mb-lg-0">
+        <a mat-mini-fab class="bg-jab mx-2" data-toggle="dropdown"><mat-icon>search</mat-icon></a>
+        <form [formGroup]="searchForm" (ngSubmit)="search()">
+          <div class="dropdown-menu py-0 shadow border-0 drop mt-175 dropdown-fixed" id="dropdown">
+            <div class="input-group ">
+              <input type="text" class="form-control form-controll form-controlll border-0 inpo" formControlName="search"
+                placeholder="Related to articles">
+              <div class="input-group-append">
+                <button mat-raised-button class="input-group-text bg-jab text-white">
+                  <mat-icon>search</mat-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        </div>
+      </li>
+
+      <li class="nav-item pr-lg-4 align-items-center d-flex mt-lg-0 mt-3">
+        <p class="mb-0 d-content-m">
+          <span  mat-raised-button [matBadge]="[users]" matBadgeOverlap="false"  class="font-weight-light">Online Users</span>
+        </p>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+</div>

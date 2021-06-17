@@ -1,0 +1,205 @@
+<div class="bg-color px-lg-5 px-2 pb-5 mt-55">
+    <ng-container *ngIf="abstractHeader === 'Not Found'; then l1 else l2"></ng-container>
+    <ng-template #l1>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-9 col-sm-12">
+                            <h1 class="text-white mb-2">Abstract</h1>
+                            <h4 class="text-white l-height-125"><span class="font-weight-light"> Articles below are
+                                    published ahead
+                                    of final publication in an issue. Please<br> cite articles in the following format:
+                                    authors, (year), title, journal, DOI.
+                                </span></h4>
+                            <div class="row mt-215">
+                                <div class="col-sm-12 col-lg-3 col-md-4 font18"><a routerLink="/current"
+                                        [routerLinkActive]="['active']" class="text-white">Current Issue</a></div>
+                                <div class="col-sm-12 col-lg-3 col-md-4 font18"><a routerLink="/onlinefirst"
+                                        [routerLinkActive]="['active']" class="text-white">Online First</a></div>
+                                <div class="col-sm-12 col-lg-3 col-md-4 font18"><a routerLink="/archives"
+                                        [routerLinkActive]="['active']" class="text-white">Archive</a></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 text-center"></div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-sm-12 d-flex align-items-end text-center">
+                    <div class="align-items-center d-flex">
+                        <a class="cursor text-white align-items-center d-flex card-link" (click)="previous()">
+                            <mat-icon>keyboard_arrow_left</mat-icon> Previous Article
+                        </a>
+                        <a class="cursor text-white align-items-center d-flex card-link" (click)="next()">Next Article
+                            <mat-icon>
+                                keyboard_arrow_right</mat-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template #l2>
+        <div class="container">
+            <ng-container *ngFor="let abstractHeader of abstractHeader">
+                <ng-container *ngIf="abstractHeader.issue_no!=null; then in1 else in2"></ng-container>
+                <ng-template #in1>
+                    <div class="text-white"><span class="font-normal">{{abstractHeader.category_name}}</span> |
+                        {{abstractHeader.issue_no}}, {{abstractHeader.issue_period}} &nbsp;&nbsp;
+                        <a data-target="crossmark"><img width="150"
+                                src="https://crossmark-cdn.crossref.org/widget/v2.0/logos/CROSSMARK_Color_horizontal.svg"></a>
+                    </div>
+                </ng-template>
+                <ng-template #in2>
+                    <div class="text-white"><span class="font-normal">{{abstractHeader.category_name}}</span></div>
+                </ng-template>
+                <div class="row mt-4">
+                    <div class="col-lg-10 col-sm-12">
+                 
+                        <div class="text-white">
+                            <p class="font-weight-normal fonth5 text-white"
+                                [innerHTML]="abstractHeader.title |  safeHtml "></p>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-sm-0"></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <p class="text-white h6 font-weight-normal d-flex flex-wrap" [ngStyle]="{'line-height':'1.6'}">
+                            <ng-container *ngFor="let author of abstractHeader.authors;let i1 = index;let l = last">
+                                <ng-container *ngFor="let author1 of abstractHeader.authors1;let i2 = index;">
+                                    <ng-container *ngIf="i1 === i2">
+                                        <ng-container *ngIf="l; then l1 else l2"></ng-container>
+                                        <ng-template #l1>
+                                            <a (click)="authorArticle(author1)" class="text-white cursor mr-1"
+                                                [innerHTML]="author | htmlEntityDecode | rmNumber | safeHtml"></a>
+                                        </ng-template>
+                                        <ng-template #l2>
+                                            <a (click)="authorArticle(author1)" class="text-white cursor mr-1"
+                                                [innerHTML]="author+',' | htmlEntityDecode | rmNumber | safeHtml"></a>
+                                        </ng-template>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+                            <span> &nbsp;&nbsp;<button mat-raised-button class="bg-light py-0 px-2"
+                                    data-toggle="dropdown" id="dropdownMenuOffset"
+                                    [ngStyle]="{'line-height':'9px','font-size':'12px'}">
+                                    <mat-icon>add_circle_outline</mat-icon> Author Affiliations
+                                </button>
+                                <div class="dropdown-menu shadow transf" aria-labelledby="dropdownMenuOffset">
+                                    <div class="w-100 mx-0 px-3">
+                                        <p class="font-weight-normal h6 jab-color mt-3"
+                                            [innerHTML]="abstractHeader.Authors | replace | safeHtml"></p>
+                                        <p class="text-secondary small mt-3"
+                                             [innerHTML]="authorAffiliation | htmlEntityDecode | safeHtml"></p>
+                                    </div>
+                                </div>
+                            </span>
+                        </p>
+
+                        <p><span [ngStyle]="{'color':'#f78300'}">Open Access &nbsp;&nbsp;</span><span
+                                class="text-white font-weight-normal">
+                                <p class="mb-0"
+                                    *ngIf="((abstractHeader.publish_date | date:'yyyy') > '2012')">
+                                    Published: {{abstractHeader.publish_date | date:'MMM dd, yyyy'}},&nbsp;&nbsp;</p>
+                                <ng-container *ngIf="abstractHeader.doi">DOI: <a
+                                        [href]="['http://dx.doi.org/'+abstractHeader.doi]" class="text-white"
+                                        target="_blank">{{abstractHeader.doi}}</a></ng-container>
+                            </span></p>
+                    </div>
+                    <div class="col-lg-4 col-sm-12 d-flex flex-wrap justify-content-around">
+                        <span class="align-items-center d-flex ml-lg-55 ml-0"><span class="__dimensions_badge_embed__"
+                                attr.data-doi="{{abstractHeader.doi}}" data-hide-zero-citations="false"
+                                data-style="small_circle"></span></span>
+                        <span><a [href]="['https://plu.mx/plum/a/?doi='+abstractHeader.doi]" id="doi"
+                                class="plumx-plum-print-popup mt-5"></a></span>
+                    </div>
+                </div>
+                <div class="row justify-content-center d-lg-flex d-inline-block">
+                    <div class="col-lg-8 col-sm-12 col-md-12 d-lg-block d-flex align-items-center">
+                        <div *ngIf="abstractHeader.fileSize!='0.0'" class="btn-group align-items-center mx-lg-0 mx-2">
+                            <a (click)="countDownload(pdfPath$+abstractHeader.file_url, abstractHeader.article_id)"
+                                mat-raised-button class="text-white bg-infor card-link font-weight-normal mr-3"
+                                target="_blank"><i class="fa fa-file-pdf-o pr-1" aria-hidden="true"></i> PDF [
+                                {{abstractHeader.fileSize}} MB ]</a>
+                        </div>
+                        <div class="btn-group align-items-center w-50 mx-lg-0 mx-2">
+                            <a mat-raised-button class="card-link bg-successer text-white font-weight-normal"
+                                data-toggle="dropdown" id="dropdownMenuReference">Article Tools <mat-icon>
+                                    keyboard_arrow_down</mat-icon></a>
+
+                            <div class="dropdown-menu shadow ml-lg-0 ml-n5" aria-labelledby="dropdownMenuReference">
+                                <div class="row w-100 mx-0">
+                                    <div class="col-lg-6 col-sm-12 mx-0 px-0"><a
+                                            class="dropdown-item dropdown-itemm h6 text-dark"
+                                            [href]="'mailto:editor@jabonline.in&amp;subject=Request permission on article with ID:'+abstractHeader.article_id+'&amp;body=Dear Publisher,%0A%0A I would like to use a part/the whole of the mentioned article in one of my publictions as titled below.%0A Format: Figure, Table, Text%0APublication date:%0AVolume (Issue):%0APage number(s):%0ATitle of article:%0A %0AThis material is to be reproduced for:%0ATitle:%0AEdition:%0AAuthor:%0APublisher:%0ANature of work:%0AAudience:%0ANo. of copies to be distributed:%0ARetail price per copy:%0AName:%0ACompany:%0AAddress:%0APhone:%0APlease guide me and send me instruction for re-use. %0AKind Regards '">
+                                            <i class="jab-color pr-1 fa fa-copyright" aria-hidden="true"></i> Request
+                                            Permission</a></div>
+                                    <div class="col-lg-6 col-sm-12 mx-0 px-0">
+                                        <a class="dropdown-item dropdown-itemm h6 text-dark" [matMenuTriggerFor]="menu"
+                                            [ngStyle]="{'cursor':'pointer'}"><i class="jab-color pr-1 fa fa-share"
+                                                aria-hidden="true"></i> Share</a>
+                                        <mat-menu #menu="matMenu" class="bg-transparent shadow-none mr-n15"
+                                            style="box-shadow: unset!important;">
+                                            <a [href]="['https://api.whatsapp.com/send?text='+_basePath$]"
+                                                target="_blank" mat-mini-fab class="mr-3 my-1 bg-success"><i
+                                                    class="fa fa-whatsapp" aria-hidden="true"
+                                                    style="font-size: 20px;"></i></a>
+                                            <a [href]="['https://www.facebook.com/sharer.php?u='+_basePath$]"
+                                                target="_blank" mat-mini-fab class="mx-3 my-1 bg-primary"><i
+                                                    class="fa fa-facebook" aria-hidden="true"
+                                                    style="font-size: 17px;"></i></a>
+                                            <a [href]="['https://twitter.com/share?text='+[abstractHeader.title | htmlEntityDecode |safeHtml ]+'&url='+_basePath$]"
+                                                target="_blank" mat-mini-fab class="ml-3 mr-5 my-1 bg-info"><i
+                                                    class="fa fa-twitter" aria-hidden="true"
+                                                    style="font-size: 17px;"></i></a>
+                                            <a [href]="['https://www.instagram.com/?url='+_basePath$]" target="_blank"
+                                                mat-mini-fab class="mr-3 my-1 bg-danger"><i class="fa fa-instagram"
+                                                    aria-hidden="true" style="font-size: 20px;"></i></a>
+                                            <a [href]="['https://www.linkedin.com/shareArticle?mini=true&url='+_basePath$]"
+                                                target="_blank" mat-mini-fab class="mx-3 my-1 bg-info"><i
+                                                    class="fa fa-linkedin" aria-hidden="true"
+                                                    style="font-size: 18px;"></i></a>
+                                            <a [href]="['mailto:?subject='+[abstractHeader.title | htmlEntityDecode | safeHtml ]+'&body=Check out this site'+ _basePath$]"
+                                                target="_blank" mat-mini-fab class="ml-3 mr-5 my-1 bg-secondary"><i
+                                                    class="fa fa-envelope-o" aria-hidden="true"
+                                                    style="font-size: 18px;"></i></a>
+                                        </mat-menu>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12 mx-0 px-0"><a
+                                            class="dropdown-item dropdown-itemm h6 text-dark"
+                                            [href]="[addd.Add+'endNoteText.php?article_id='+abstractHeader.article_id]"
+                                            target="_blank"><i class="jab-color pr-1 fa fa-envelope"
+                                                aria-hidden="true"></i> Import into EndNote</a></div>
+                                    <div class="col-lg-6 col-sm-12 mx-0 px-0 doNotPrint"><a
+                                            class="dropdown-item dropdown-itemm h6 text-dark" (click)="print()"
+                                            [ngStyle]="{'cursor':'pointer'}"><i class="jab-color pr-1 fa fa-print"
+                                                aria-hidden="true"></i> Print</a></div>
+                                    <div class="col-lg-6 col-sm-12 mx-0 px-0"><a
+                                            class="dropdown-item dropdown-itemm h6 text-dark"
+                                            [href]="[addd.Add+'bibText.php?article_id='+abstractHeader.article_id]"
+                                            target="_blank"><i class="jab-color pr-1 fa fa-globe"
+                                                aria-hidden="true"></i> Import into Bibtex</a></div>
+                                    <div class="col-lg-6 col-sm-12 mx-0 px-0"><a
+                                            class="dropdown-item dropdown-itemm h6 text-dark"
+                                            (click)="countDownload(pdfPath$+abstractHeader.file_url, abstractHeader.article_id)"
+                                            [ngStyle]="{'cursor':'pointer'}"><i class="jab-color pr-1 fa fa-download"
+                                                aria-hidden="true"></i> Download PDF</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-lg-4 col-sm-12 col-md-12 align-items-end d-flex justify-content-lg-end justify-content-center mt-lg-0 mt-4">
+                        <div class="align-items-center d-flex">
+                            <a class="cursor text-white mr-4 align-items-center d-flex card-link" (click)="previous()">
+                                <mat-icon>keyboard_arrow_left</mat-icon> Previous Article
+                            </a>
+                            <a class="cursor text-white ml-4 align-items-center d-flex card-link" (click)="next()">Next
+                                Article <mat-icon> keyboard_arrow_right</mat-icon></a>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </ng-template>
+</div>

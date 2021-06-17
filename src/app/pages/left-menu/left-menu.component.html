@@ -1,0 +1,27 @@
+<div class="bg-white">
+    <mat-accordion>
+        <ng-container *ngFor="let rightPanel of rightPanel">
+        <div class="font15 font-normal px-4 py-3 letter-spacing" *ngIf="rightPanel.name !== 'Journal Policies'">
+            <a [routerLink]="[rightPanel.link]" class="card-link text-dark">{{rightPanel.name}}</a>
+        </div>
+        <mat-expansion-panel class="shadow-sm py-1" *ngIf="rightPanel.name === 'Journal Policies'">
+            <mat-expansion-panel-header class="font-normal text-secondary">
+                <mat-panel-title>
+                    {{rightPanel.name}}
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <ng-container *ngIf="rightPanel.policies">
+                <ul class="list-style-none pl-0 mb-0">
+                    <li class="d-flex align-items-center"
+                        *ngFor='let rightPanel$ of rightPanel.policies'>
+                        <mat-icon class="color-icon"> arrow_right </mat-icon>
+                        <a [routerLink]="['/policies', rightPanel$.policies_id]" class="text-decoration-none text-dark py-1">
+                            {{rightPanel$.policies_name}}
+                        </a>
+                    </li>
+                </ul>
+            </ng-container>
+        </mat-expansion-panel>
+        </ng-container>
+    </mat-accordion>
+</div>

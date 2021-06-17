@@ -1,0 +1,95 @@
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: #2f7181;
+}
+@media (max-width: 991.98px) {
+  .table-group {
+    overflow: unset;
+  }
+}
+
+.ui.tag.label {
+  margin: 0 20px 10px 0;
+}
+.ui.tag.label,
+.ui.tag.labels .label {
+  margin-left: 1em;
+  position: relative;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  border-radius: 0 0.28571429rem 0.28571429rem 0;
+  -webkit-transition: none;
+  transition: none;
+}
+a.ui.label {
+  cursor: pointer;
+}
+.ui.label,
+.ui.labels .label {
+  font-size: 0.85714286rem;
+}
+.ui.label {
+  display: inline-block;
+  line-height: 1;
+  /* vertical-align: baseline; */
+  margin: 0 0.14285714em;
+  background-color: #e8e8e8;
+  background-image: none;
+  padding: 0.5833em 0.833em;
+  color: rgba(0, 0, 0, 0.6);
+  text-transform: none;
+  font-weight: 700;
+  border: 0 solid transparent;
+  border-radius: 0.28571429rem;
+  -webkit-transition: background 0.1s ease;
+  transition: background 0.1s ease;
+}
+.ui.grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  padding: 0;
+}
+.ui.tag.label:before,
+.ui.tag.labels .label:before {
+  position: absolute;
+  -webkit-transform: translateY(-50%) translateX(50%) rotate(-45deg);
+  transform: translateY(-50%) translateX(50%) rotate(-45deg);
+  top: 50%;
+  right: 100%;
+  content: "";
+  background-color: inherit;
+  background-image: none;
+  width: 1.56em;
+  height: 1.56em;
+  -webkit-transition: none;
+  transition: none;
+}
+.ui.tag.label:after,
+.ui.tag.labels .label:after {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: -0.25em;
+  margin-top: -0.25em;
+  background-color: #fff !important;
+  width: 0.5em;
+  height: 0.5em;
+  -webkit-box-shadow: 0 -1px 1px 0 rgb(0 0 0 / 30%);
+  box-shadow: 0 -1px 1px 0 rgb(0 0 0 / 30%);
+  border-radius: 500rem;
+}
+.label:hover {
+  background-color: #c2bebe;
+  color: rgba(0, 0, 0);
+}

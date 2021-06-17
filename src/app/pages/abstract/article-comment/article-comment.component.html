@@ -1,0 +1,42 @@
+<div class="container-fluid px-6 jumbotron">
+    <form [formGroup]="commentForm" (ngSubmit)="onComment()" class="p-lg-0 p-2">
+        <div class="input-group mb-3">
+            <div class="w-lg-sm-50 mb-lg-0 mb-3">
+                <input type="text" class="form-control p-4 font14" formControlName="name" placeholder="Enter Name">
+                <span class="mx-2 text-danger font12" *ngIf="((f.name.invalid &&(f.name.touched || f.name.dirty)) || submitted) && f.name.errors?.required">Name Required</span>
+            </div>
+            <div class="w-lg-sm-50">
+                <input type="text" class="form-control p-4 font14" formControlName="email" placeholder="Enter Email Id">
+                <span class="mx-2 text-danger font12" *ngIf="((f.email.invalid &&(f.email.touched || f.email.dirty)) || submitted) && f.email.errors?.required">Email Required</span>
+                <span class="mx-2 text-danger font12" *ngIf="f.email.errors?.email">Invalid Email Address</span>
+            </div>
+        </div>
+        <div class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control p-4 font14 w-lg-sm-50 hiddenInput2" formControlName="comment" placeholder="Enter Comment">
+            <textarea class="form-control p-4 font14 w-lg-sm-50 hiddenInput1" formControlName="comment" placeholder="Enter Comment"></textarea>
+            <span class="mx-2 text-danger font12 hiddenInput1 w-100"
+                *ngIf="((f.comment.invalid &&(f.comment.touched || f.comment.dirty)) || submitted) && f.comment.errors?.required">Comment
+                Required</span>
+            <div class="input-group-append w-lg-sm-50-1 justify-content-center mt-lg-0 mt-3">
+            <span class="input-group-text p-0 bg-jab"><button mat-button class="align-items-center d-flex text-white py-1" [disabled]="!commentForm.valid">Comment</button></span>
+            </div>
+        </div>
+            <span class="mx-2 text-danger font12 hiddenInput2" *ngIf="((f.comment.invalid &&(f.comment.touched || f.comment.dirty)) || submitted) && f.comment.errors?.required">Comment Required</span>
+        </div>
+        <ngx-recaptcha2 class="justify-content-center d-flex mb-3 scale-mobile" #captchaElem
+            [siteKey]="'6LfX_TwUAAAAALsC2vOjfcnPc-IC8osrRqw_TydP'" [useGlobalDomain]="false" formControlName="recaptcha">
+        </ngx-recaptcha2>
+    </form>
+</div>
+
+<div>
+    <div class="timeline">
+        <div class="container right" *ngFor="let comment of commentArticleFetch">
+            <div class="content shadow-sm text-secondary">
+                <h2>{{comment.name}}</h2>
+                <p>{{comment.comment}}</p>
+            </div>
+        </div>
+    </div>
+</div>

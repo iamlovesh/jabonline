@@ -1,0 +1,16 @@
+.bg-color{
+    background-color: #2F7181!important;
+}
+
+@media screen and (min-width: 601px) {
+ .w-15{
+    width: 10%;
+}
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 600px) {
+  .w-15{
+    width: 32%;
+}
+}

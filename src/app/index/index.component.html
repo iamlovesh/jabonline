@@ -1,0 +1,457 @@
+<app-content-carousel></app-content-carousel>
+<div class="container-fluid mt-5">
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+      <div class="card card-body shadow-sm h-100">
+        <div>
+          <h2 class="mb-0">Editor’s Choice</h2>
+        </div>
+        <hr class="bg-color mt-1" style="padding: 1px" />
+        <swiper [config]="configg">
+          <div class="swiper-wrapper">
+            <ng-container *ngFor="let _getEditorsChoice of getEditorsChoice">
+              <div class="swiper-slide">
+                <a
+                  (click)="editorChoice(_getEditorsChoice.article_id)"
+                  class="card-link text-dark cursor"
+                >
+                  <div class="row align-items-center d-flex m-auto py-4">
+                    <div
+                      class="
+                        col-lg-6 col-sm-12 col-md-12
+                        mt-lg-0 mt-3
+                        order-2 order-lg-1
+                      "
+                    >
+                      <p
+                        class="font-normal text-dark"
+                        [ngStyle]="{ 'font-size': '16px' }"
+                        [innerHTML]="
+                          _getEditorsChoice.title | htmlEntityDecode | safeHtml
+                        "
+                      ></p>
+                      <p
+                        [innerHTML]="
+                          _getEditorsChoice.authors
+                            | htmlEntityDecode
+                            | rmNumber
+                            | safeHtml
+                        "
+                      ></p>
+                    </div>
+                    <div
+                      class="
+                        col-lg-6 col-sm-12 col-md-12
+                        text-center
+                        order-1 order-lg-2
+                      "
+                    >
+                      <img
+                        [src]="[
+                          _getEditorsChoice.cover_page
+                            ? imagePath + _getEditorsChoice.cover_page
+                            : assets + 'ezgif.com-gif-makerr.jpg'
+                        ]"
+                        class="img-fluid w-75"
+                      />
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ng-container>
+          </div>
+          <div class="swiper-button-next text-dark h2"></div>
+          <div class="swiper-button-prev text-dark h2"></div>
+        </swiper>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-12 my-lg-0 my-4 my-md-4">
+      <div class="box big-text clearfix px-3 py-4 bg-white shadow-sm">
+        <h2 class="mb-0">Scope</h2>
+        <hr class="bg-color mt-1" style="padding: 1px" />
+        <p>
+          <em>Journal of Applied Biology and Biotechnology</em> is a
+          peer-reviewed, open-access journal, dedicated to the publication of
+          original research, review articles, short communications on applied
+          researches in the following fields of biology such as.
+          <a routerLink="/aboutus">Read More.</a>
+        </p>
+
+        <img
+          [lazyLoad]="[assets + 'logo_openaccess2.png']"
+          class="pull-right"
+        />
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-12">
+      <div class="card card-body pb-5">
+        <div class="px-1">
+          <h2 class="mb-0 align-items-center d-flex">
+            <mat-icon>bar_chart</mat-icon> &nbsp; JABB Metrics
+          </h2>
+          <hr class="bg-color mt-1" style="padding: 1px" />
+        </div>
+        <div class="row px-3 pb-5">
+          <ng-container *ngFor="let journamMatrix of journamMatrix">
+            <div class="col-9 px-1"><p>Acceptance rate</p></div>
+            <div class="col-3 px-1">
+              <p>
+                <b>{{ journamMatrix.rate }}</b>
+              </p>
+            </div>
+            <div class="col-9 px-1"><p>Submission to final decision</p></div>
+            <div class="col-3 px-1">
+              <p>
+                <b>{{ journamMatrix.finalDecision }}</b>
+              </p>
+            </div>
+            <div class="col-9 px-1"><p>Acceptance to publication</p></div>
+            <div class="col-3 px-1">
+              <p>
+                <b>{{ journamMatrix.publication }}</b>
+              </p>
+            </div>
+            <div class="col-9 px-1"><p>CiteScore</p></div>
+            <div class="col-3 px-1">
+              <p>
+                <b>{{ journamMatrix.citescore }}</b>
+              </p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Latest Articles -->
+<div
+  class="conatainer-fluid overflow-hidden mt-5"
+  *ngFor="let sliderCard of sliderCard"
+>
+  <div class="card border-0">
+    <div
+      class="card-header border-0 justify-content-between d-flex row px-5 pb-0"
+    >
+      <span class="d-lg-inline-flex align-items-center">
+        <h2>
+          <p class="mb-0">{{ sliderCard.title }}</p>
+        </h2>
+        <p class="px-3 small">
+          <i>{{ sliderCard.subTitle }}</i>
+        </p>
+      </span>
+      <a
+        [routerLink]="sliderCard.showAll"
+        class="card-link"
+        [ngStyle]="{ 'line-height': '3' }"
+        >Show All</a
+      >
+    </div>
+    <div class="card-body pt-0">
+      <swiper [config]="config">
+        <!--Online First-->
+        <div class="swiper-wrapper">
+          <ng-container *ngIf="sliderCard.slideLoop === 'onlinefirstArticle'">
+            <ng-container *ngFor="let slide of onlinefirstArticle">
+              <div class="swiper-slide">
+                <a
+                  [routerLink]="['/abstract.php']"
+                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  class="card-link text-dark"
+                >
+                  <div class="card mx-3 mb-2">
+                    <img
+                      [lazyLoad]="
+                        slide.cover_page
+                          ? imagePath + slide.cover_page
+                          : assets + 'ezgif.com-gif-makerr.jpg'
+                      "
+                      class="card-img-top img-fluid h-fix p-4"
+                    />
+                    <div class="card-body">
+                      <p
+                        class="card-title h6"
+                        [innerHTML]="slide.title | htmlEntityDecode | safeHtml"
+                      ></p>
+                      <p
+                        class="card-title"
+                        [innerHTML]="
+                          slide.authors | htmlEntityDecode | rmNumber
+                        "
+                      ></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <!--Current Issue Article-->
+          <ng-container *ngIf="sliderCard.slideLoop === 'currentIssueArticles'">
+            <ng-container *ngFor="let slide of currentIssueArticles">
+              <div class="swiper-slide">
+                <a
+                  [routerLink]="['/abstract.php']"
+                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  class="card-link text-dark"
+                >
+                  <div class="card mx-3 mb-2 make-it-slow">
+                    <img
+                      [lazyLoad]="
+                        slide.cover_page
+                          ? imagePath + slide.cover_page
+                          : assets + 'ezgif.com-gif-makerr.jpg'
+                      "
+                      class="card-img-top img-fluid h-fix p-4"
+                    />
+                    <div class="card-body">
+                      <p
+                        class="card-title h6"
+                        [innerHTML]="slide.title | htmlEntityDecode | safeHtml"
+                      ></p>
+                      <p
+                        class="card-title"
+                        [innerHTML]="
+                          slide.authors | htmlEntityDecode | rmNumber
+                        "
+                      ></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <!--Trending Articles-->
+          <ng-container *ngIf="sliderCard.slideLoop === 'getTrending_articles'">
+            <ng-container *ngFor="let slide of getTrending_articles">
+              <div class="swiper-slide">
+                <a
+                  [routerLink]="['/abstract.php']"
+                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  class="card-link text-dark"
+                >
+                  <div class="card mx-3 mb-2 make-it-slow">
+                    <img
+                      [lazyLoad]="
+                        slide.cover_page
+                          ? imagePath + slide.cover_page
+                          : assets + 'ezgif.com-gif-makerr.jpg'
+                      "
+                      class="card-img-top img-fluid h-fix p-4"
+                    />
+                    <div class="card-body">
+                      <p
+                        class="card-title h6"
+                        [innerHTML]="slide.title | htmlEntityDecode | safeHtml"
+                      ></p>
+                      <p
+                        class="card-title"
+                        [innerHTML]="
+                          slide.authors | htmlEntityDecode | rmNumber
+                        "
+                      ></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ng-container>
+          </ng-container>
+
+          <!--Most Viewed Articles-->
+          <ng-container
+            *ngIf="sliderCard.slideLoop === 'getMostViewArticleApi'"
+          >
+            <ng-container *ngFor="let slide of getMostViewArticleApi">
+              <div class="swiper-slide">
+                <a
+                  [routerLink]="['/abstract.php']"
+                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  class="card-link text-dark"
+                >
+                  <div class="card mx-3 mb-2 make-it-slow">
+                    <img
+                      [lazyLoad]="
+                        slide.cover_page
+                          ? imagePath + slide.cover_page
+                          : assets + 'ezgif.com-gif-makerr.jpg'
+                      "
+                      class="card-img-top img-fluid h-fix p-4"
+                    />
+                    <div class="card-body">
+                      <p
+                        class="card-title h6"
+                        [innerHTML]="slide.title | htmlEntityDecode | safeHtml"
+                      ></p>
+                      <p
+                        class="card-title"
+                        [innerHTML]="
+                          slide.authors | htmlEntityDecode | rmNumber
+                        "
+                      ></p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ng-container>
+          </ng-container>
+        </div>
+        <!-- Add Arrows -->
+        <div
+          class="
+            swiper-button-next
+            px-4
+            py-5
+            bg-blur
+            mx-1
+            text-dark
+            right-redi
+            shadow
+          "
+        ></div>
+        <div
+          class="
+            swiper-button-prev
+            px-4
+            py-5
+            bg-blur
+            mx-1
+            text-dark
+            left-redi
+            shadow
+          "
+        ></div>
+      </swiper>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid px-lg-5 mt-5">
+  <div class="row">
+    <div class="col-lg-4 col-sm-12 p-lg-4 mt-lg-0">
+      <div class="card make-it-slow">
+        <div
+          class="
+            card card-header
+            text-center
+            bg-lighgreen
+            mt-n4
+            shadow-sm
+            mx-2
+            text-secondary
+          "
+        >
+          <p class="font-weight-bold h6 mb-0">Journal Ranking</p>
+        </div>
+        <div class="card-body text-center">
+          <!-- <img [src]="[assets+'journal_imgg.png']" class="img-responsive img-fluid mb-3 img-thumbnail shadow-sm">
+          <img [src]="[assets+'CiteScore2018_Rasayan_Journal_of_C.png']" class="img-responsive img-fluid mb-3 img-thumbnail shadow-sm"> -->
+          <a
+            href="https://www.scimagojr.com/journalsearch.php?q=21100970232&amp;tip=sid&amp;exact=no"
+            title="SCImago Journal &amp; Country Rank"
+            target="_blank"
+            ><img
+              border="0"
+              src="https://www.scimagojr.com/journal_img.php?id=21100970232"
+              alt="SCImago Journal &amp; Country Rank"
+          /></a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 p-lg-4 mt-lg-0 mt-5">
+      <div class="card make-it-slow">
+        <div
+          class="
+            card card-header
+            text-center
+            bg-lighgreen
+            mt-n4
+            shadow-sm
+            mx-2
+            text-secondary
+          "
+        >
+          <p class="font-weight-bold h6 mb-0">Announcements</p>
+        </div>
+        <div class="card-body my-2" style="height: 23.5rem">
+          <ul class="pl-4" [ngStyle]="{ 'list-style': 'decimal' }">
+            <li
+              class="mb-3"
+              *ngFor="let newsAnnouncements of newsAnnouncements"
+            >
+              <a
+                [href]="[newsAnnouncements.link]"
+                target="_blank"
+                class="card-link text-secondary"
+                >{{ newsAnnouncements.news_desc | htmlEntityDecode }}</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 col-sm-12 p-lg-4 mt-lg-0 mt-5">
+      <div class="card make-it-slow">
+        <div
+          class="
+            card card-header
+            text-center
+            bg-lighgreen
+            mt-n4
+            shadow-sm
+            mx-2
+            text-secondary
+          "
+        >
+          <p class="font-weight-bold h6 mb-0">Journal Statistics</p>
+        </div>
+
+        <div
+          class="card-body"
+          style="height: 24.5rem"
+          *ngFor="let statisticsRecord of statisticsRecords"
+        >
+          <div class="card card-body mb-2 py-1 shadow-sm text-center">
+            <div>
+              <h2 class="text-secondary py-2 mb-0">
+                {{ statisticsRecord.submitted | number }}
+              </h2>
+            </div>
+            <div>
+              <p class="text-uppercase text-secondary">submitted articles</p>
+            </div>
+          </div>
+          <div class="card card-body mb-2 py-1 shadow-sm text-center">
+            <div>
+              <h2 class="text-secondary py-2 mb-0">
+                {{ statisticsRecord.published | number }} +
+              </h2>
+            </div>
+            <div>
+              <p class="text-uppercase text-secondary">published articles</p>
+            </div>
+          </div>
+          <div class="card card-body mb-2 py-1 shadow-sm text-center">
+            <div>
+              <h2 class="text-secondary py-2 mb-0">
+                {{ statisticsRecord.downloads | number }}
+              </h2>
+            </div>
+            <div>
+              <p class="text-uppercase text-secondary">total downloads</p>
+            </div>
+          </div>
+          <blockquote class="blockquote">
+            <footer class="blockquote-footer text-center font13 text-secondary">
+              <cite
+                >Journal statistics based on the data provided by Ejmanager
+                system</cite
+              >
+            </footer>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

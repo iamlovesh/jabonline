@@ -1,0 +1,29 @@
+.bg-blur {
+    background-color: #dcdcdc9e;
+}
+.left-redi {
+    border-radius: 0px 4px 4px 0px;
+}
+.right-redi {
+    border-radius: 4px 0px 0px 4px;
+}
+.h-fix{
+    height: 11rem;
+}
+
+.bg-lighgreen{
+    /* background-color: #b4fbbcd1!important; */
+    background-color: #efefef!important
+}
+
+.mat-dialog-container{
+    border-top: 7px solid #bdffc2!important;
+}
+
+.tb-50{
+    top: 50%;
+    bottom: 50%;
+}
+.swiper-slide .card-body{
+    min-height: 200px;
+}

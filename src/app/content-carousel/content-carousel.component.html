@@ -1,0 +1,45 @@
+<div class="bg-color px-5 pb-5 mt-55">
+    <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12 text-center">
+                    <img [src]="[assets+'cover-20.jpg']" class="img-fluid img-responsive mb-lg-0 mb-5" (click)="coverImage()" [ngStyle]="{'cursor':'pointer'}">
+                </div>
+                <div class="col-lg-5 col-sm-12">
+                    <h2 class="text-white letter-13 class "><b>Journal of Applied<br> Biology & Biotechnology</b></h2>
+                    <hr class="bg-white mt-1">
+                    <p class="mb-1 text-white letter-10"><b>ISSN Print</b>: 2455-7005, <b>ISSN Online</b>: 2347-212X</p>
+                    <p class="mb-1 text-white letter-10"><b>Frequency</b>: Bimonthly</p>
+                    <p class="mb-lg-1 mb-4 text-white letter-10"><b>Indexing: <a class="text-white text-decoration-none" href="https://www.scopus.com/sourceid/21100970232">Scopus, </a> <a class="text-white text-decoration-none" href="http://mjl.clarivate.com/cgi-bin/jrnlst/jlresults.cgi?PC=MASTER&ISSN=2455-7005"> Web of Science</a> </b> and <a class="text-white text-decoration-none" routerLink="/aboutus">many more</a></p>
+                    <p class="text-white"><b>Editor in Chief :</b>
+                    Dr. Ajar Nath Yadav</p>
+                    <button mat-button [matMenuTriggerFor]="menu" class="bg-white border-curve padding-x22 mt-lg-3 ml-lg-0 ml-4">Journal
+                        Overview <mat-icon>expand_more</mat-icon></button>
+                    <mat-menu #menu="matMenu" class="mt-1 bg-light">
+
+                        <a routerLink="/aboutus" mat-menu-item class="nav-link">About this journal</a>
+                        <!-- <a routerLink="/aboutus" mat-menu-item class="nav-link">Journal Policies</a> -->
+                        <a routerLink="/editorialboard" mat-menu-item class="nav-link">Editorial Board</a>
+                        <!-- <a routerLink="/aboutus" mat-menu-item class="nav-link">Publication ethics</a> -->
+                        <a routerLink="/aboutus" mat-menu-item class="nav-link">Abstracting and indexing</a>
+                        <a routerLink="/authorsguideline" mat-menu-item class="nav-link">Articles process charge</a>
+
+                    </mat-menu>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 mt-3">
+            <a routerLink="/current" mat-button class="nav-link shadow mb-3 padding-x35 py-1 text-center bg-warner cursor">
+                <mat-icon>read_more</mat-icon> &nbsp; Read this Journal
+            </a>
+            <a routerLink="/submitManuscript" mat-button class="nav-link shadow mb-3 padding-x32 py-1 text-center bg-infor cursor">
+                <mat-icon>library_books</mat-icon> &nbsp; Submit your Article
+            </a>
+            <button mat-button class="shadow  padding-x46 py-1 text-center bg-successer cursor" (click)="openDialog()">
+                <mat-icon>mail_outline</mat-icon> &nbsp; Email Alerts
+            </button>
+        </div>
+    </div>
+</div>

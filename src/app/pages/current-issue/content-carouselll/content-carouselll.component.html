@@ -1,0 +1,110 @@
+<div class="bg-color px-5 pb-5 mt-55">
+
+    <div *ngIf="currentIssueArticleDetails; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+        <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12 text-center">
+                    <img style=" height:203px; width:156px;" src="{{(currentIssueArticleDetails[2])?(imgpath+currentIssueArticleDetails[2]):(assets+'cover-20.jpg')}}" class="img-fluid img-responsive mb-lg-0 mb-5">
+                </div>
+                <div class="col-lg-9 col-sm-12">
+                    <h2 class="text-white mb-2">{{currentIssueArticleDetails[1]}}</h2>
+                    <h1 class="text-white mb-2">{{currentIssueArticleDetails[0]}}</h1>
+                    <h3 class="text-white font-normal font18  mb-2"> In this Issue:
+                        <ng-container *ngFor="let dataa of currentIssueArticleDetails;let l = last">
+                            <ng-container *ngIf="dataa.category_name" >
+                                <ng-container *ngIf="!l">{{dataa.category_name+':'}} {{dataa.count+', '}}</ng-container>
+                                <ng-container *ngIf="l">{{dataa.category_name+':'}} {{dataa.count}}</ng-container>
+                            </ng-container>
+                        </ng-container>
+                    </h3>
+                    <h4 class="text-white l-height-125" *ngIf="currentIssueArticleDetails[3]"><b class="font-normal">On the cover: </b> <span class="font-weight-light"> <span #wordOfOnTheCover> {{currentIssueArticleDetails[3] | splitWord}}...</span> </span> <a (click)="onTheCover(currentIssueArticleDetails[3])" class="card-link text-white cursor" [hidden]="hiding">Show more</a></h4>
+                <div class="row mt-215">
+                    <div class="col-sm-12 col-lg-3 my-2 my-lg-0 col-md-4 font18"><a routerLink="/current" [routerLinkActive]="['active']" class="text-white">Current Issue</a></div>
+                    <div class="col-sm-12 col-lg-3 my-2 my-lg-0 col-md-4 font18"><a routerLink="/onlinefirst" [routerLinkActive]="['active']" class="text-white">Online First</a></div>
+                    <div class="col-sm-12 col-lg-3 my-2 my-lg-0 col-md-4 font18"><a routerLink="/archives" [routerLinkActive]="['active']" class="text-white">Archive</a></div>
+                </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 justify-content-center d-flex align-items-end text-center">
+            <div class="align-items-center d-flex mt-4">
+                <a routerLink="/current" class="card-link text-white align-items-center d-flex mr-3 mr-lg-5" (click)="openDialogg()">
+                <mat-icon>notifications</mat-icon> &nbsp; Register for eTOC alerts
+                </a>
+                <button mat-mini-fab class="bg-white font18 color" [matMenuTriggerFor]="menu">
+                    <mat-icon>share
+                    </mat-icon>
+                </button>
+            </div>
+            <mat-menu #menu="matMenu" class="bg-transparent shadow-none mr-n15" style="box-shadow: unset!important;">
+                <a [href]="['https://api.whatsapp.com/send?text='+_basePath$]" target="_blank"
+                    mat-mini-fab class="mr-3 my-1 bg-success"><i class="fa fa-whatsapp" aria-hidden="true"
+                        style="font-size: 20px;"></i></a>
+                <a [href]="['https://www.facebook.com/sharer.php?u='+_basePath$]" target="_blank"
+                    mat-mini-fab class="mx-3 my-1 bg-primary"><i class="fa fa-facebook" aria-hidden="true"
+                        style="font-size: 17px;"></i></a>
+                <a [href]="['https://twitter.com/share?url='+_basePath$]"
+                    target="_blank" mat-mini-fab class="ml-3 mr-5 my-1 bg-info"><i class="fa fa-twitter" aria-hidden="true"
+                        style="font-size: 17px;"></i></a>
+                <a [href]="['https://www.instagram.com/?url='+_basePath$]" target="_blank"
+                    mat-mini-fab class="mr-3 my-1 bg-danger"><i class="fa fa-instagram" aria-hidden="true"
+                        style="font-size: 20px;"></i></a>
+                <a [href]="['https://www.linkedin.com/shareArticle?mini=true&url='+_basePath$]"
+                    target="_blank" mat-mini-fab class="mx-3 my-1 bg-info"><i class="fa fa-linkedin" aria-hidden="true"
+                        style="font-size: 18px;"></i></a>
+                <a [href]="['mailto:?body=Check out this site'+ _basePath$]"
+                    target="_blank" mat-mini-fab class="ml-3 mr-5 my-1 bg-secondary"><i class="fa fa-envelope-o" aria-hidden="true"
+                        style="font-size: 18px;"></i></a>
+            </mat-menu>
+
+        </div>
+        </div>
+    
+    </ng-template>
+    <ng-template #elseBlock>
+    <div class="row">
+        <div class="col-lg-9 col-sm-12">
+            <div class="row">
+                <div class="col-lg-3 col-sm-12 text-center">
+                    <img src="{{assets+'cover-20.jpg'}}" class="img-fluid img-responsive mb-lg-0 mb-5">
+                </div>
+                <div class="col-lg-5 col-sm-12">
+                    <h2 class="text-white letter-13 class "><b>Journal of Applied<br> Biology & Biotechnology</b></h2>
+                    <hr class="bg-white mt-1">
+                    <p class="mb-1 text-white letter-10"><b>ISSN Print</b>: 2455-7005, <b>ISSN Online</b>: 2347-212X</p>
+                    <p class="mb-1 text-white letter-10"><b>Frequency</b>: Bimonthly</p>
+                    <p class="mb-lg-1 mb-4 text-white letter-10"><b>Indexing: Scopus, Web of Science</b> and many more</p>
+                    <button mat-button [matMenuTriggerFor]="menu" class="bg-white border-curve padding-x22 mt-lg-3 ml-lg-0 ml-4">Journal
+                        Overview <mat-icon>expand_more</mat-icon></button>
+                    <mat-menu #menu="matMenu" class="mt-1 bg-light">
+                    
+                        <a routerLink="/aboutus" mat-menu-item class="nav-link">About this journal</a>
+                        <a routerLink="/aboutus" mat-menu-item class="nav-link">Journal Policies</a>
+                        <a routerLink="/editorialboard" mat-menu-item class="nav-link">Editorial Board</a>
+                    
+                        <a routerLink="/aboutus" mat-menu-item class="nav-link">Publication ethics</a>
+                        <a routerLink="/aboutus" mat-menu-item class="nav-link">Abstracting and indexing</a>
+                        <a routerLink="/authorsguideline" mat-menu-item class="nav-link">Articles process charge</a>
+                    
+                    </mat-menu>
+                </div>
+                <div class="col-lg-4 col-sm-12">
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 mt-3">
+            <button mat-button class="shadow mb-3 padding-x35 py-1 text-center bg-warner">
+                <mat-icon>read_more</mat-icon> &nbsp; Read this Journal
+            </button>
+            <button mat-button class="shadow mb-3 padding-x32 py-1 text-center bg-infor">
+                <mat-icon>library_books</mat-icon> &nbsp; Submit your Article
+            </button>
+            <button mat-button class="shadow  padding-x46 py-1 text-center bg-successer" (click)="openDialogg()">
+                <mat-icon>mail_outline</mat-icon> &nbsp; Email Alerts
+            </button>
+        </div>
+    </div>
+    </ng-template>
+</div>

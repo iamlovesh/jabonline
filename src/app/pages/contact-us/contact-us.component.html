@@ -1,0 +1,64 @@
+<div class="py-lg-5 py-5"></div>
+<div class="mt-lg-5">
+    <div class="container-fluid px-lg-5 px-3">
+        <div class="row">
+            <div class="col-lg-3 col-sm-12 col-md-12 pr-lg-5  mb-lg-0 mb-3">
+                <app-left-menu></app-left-menu> 
+            </div>
+            <div class="col-lg-9 col-sm-12 col-md-12">
+                <div class="bg-white px-lg-4 px-4 py-1 mb-3">
+                    <h1 class="my-4 jab-color">Contact Us</h1>
+                    <hr style="color:#2F7181!important">
+                    <div [innerHTML]="contactAddress | htmlEntityDecode | safeHtml"></div>
+                    <div>
+                        <hr>
+                        <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                            <div class="row">
+                            <div class="col-lg-6 col-sm-12"><mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Name <span class="text-danger">*</span></mat-label>
+                                <input matInput  placeholder="Enter Name" formControlName="name" name="name">
+                                <mat-hint></mat-hint>
+                            </mat-form-field>
+                            </div>
+                            <div class="col-lg-6 col-sm-12"><mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Email <span class="text-danger">*</span></mat-label>
+                                <input matInput placeholder="Enter Email" formControlName="email" name="email">
+                            </mat-form-field>
+                            </div>
+                            <div class="col-lg-6 col-sm-12"><mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Qualification</mat-label>
+                                <input matInput placeholder="Enter Qualification" formControlName="qualification" name="qualification">
+                            </mat-form-field>
+                            </div>
+                            <div class="col-lg-6 col-sm-12"><mat-form-field appearance="outline" class="w-100" >
+                                <mat-label>Address</mat-label>
+                                <input matInput placeholder="Enter Address" formControlName="address" name="address">
+                            </mat-form-field>
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Subject</mat-label>
+                                    <mat-select formControlName="subject" name="subject">
+                                        <mat-option *ngFor="let selectName of selectName" [value]="selectName.selectName">
+                                            {{selectName.selectName}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-lg-6 col-sm-12"><mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Message <span class="text-danger">*</span></mat-label>
+                                <textarea matInput placeholder="Enter Message" formControlName="message" name="message"></textarea>
+                            </mat-form-field>
+                            </div>
+                            </div>
+                            <ngx-recaptcha2 class="justify-content-center d-flex mb-3" #captchaElem [siteKey]="'6LfX_TwUAAAAALsC2vOjfcnPc-IC8osrRqw_TydP'" [useGlobalDomain]="false"
+                                formControlName="recaptcha">
+                            </ngx-recaptcha2>
+                            <div class="text-center mb-4"><button type="submit" mat-raised-button class="bg-jab text-white w-25" [disabled]="!contactForm.valid">Submit</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+.w-35{
+    width: 60%;
+}
+
+.border-redi {
+    border-radius: 0px;
+}
+
+.borderm{
+    border-bottom: 2px solid #2f7181;
+}
+
+#navbar {
+    transition: 0.4s;
+    padding: 20px 10px;
+}
+
+#navbar #logo {
+  transition: 0.4s;
+}
+
+.bg-lightt {
+    background-color: #f8f9fa;
+}
+.fixed-top {
+    z-index: 1000!important;
+}
+
+.mt-175{
+    margin-top: 1.75rem;
+}
+
+@media only screen and (max-width: 678px){
+    .dropdown-fixed{
+        width: 20rem;
+        margin-left: 0rem;
+
+    }
+}
+
+@media only screen and (min-width: 679px){
+    .dropdown-fixed{
+        width: 21.5rem;
+        margin-left: -10.5rem;
+
+    }
+}
+
+.form-controlll:focus {
+    box-shadow: 0 0 0 0.2rem rgb(0 123 255 / 0%)!important;
+}
+
+
+@media(max-width:991.98px){
+    .d-content-m{
+        display:contents!important;
+    }
+}
