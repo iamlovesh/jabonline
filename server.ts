@@ -1,14 +1,26 @@
 import 'zone.js/dist/zone-node';
 
+import { createWindow }  from 'domino';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 
 import * as compression from 'compression';
+
+const indexTemplate = readFileSync('dist/browser/index.html').toString();
+const win = createWindow(indexTemplate);
+
+(global as any).window = win;
+(global as any).document = win.document;
+(global as any).navigator = win.navigator;
+(global as any).location = win.location;
+(global as any).DOMParser = (win as any).DOMParser;
+(global as any).localStorage = win.localStorage;
+(global as any).sessionStorage = win.sessionStorage;
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
@@ -23,6 +35,7 @@ export function app(): express.Express {
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
+  server.disable('x-powered-by');
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -33,6 +46,7 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
+    res.setHeader('X-Frame-Options', 'DENY');
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 

@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class StripTagPipe implements PipeTransform {
 
   transform(value: String) {
-    return value.replace(/<.*?>/g, '');
+    return value?.replace(/<.*?>/g, '');
   }
 
 }

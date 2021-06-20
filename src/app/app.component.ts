@@ -1,6 +1,6 @@
-import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { WindowRef } from "windows";
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,31 +9,30 @@ import { WindowRef } from "windows";
 export class AppComponent implements OnInit {
 
   constructor(
-    @Inject(PLATFORM_ID) private platformId: any,
-    private windowRef: WindowRef
+    @Inject(DOCUMENT) private document: Document,
+    @Inject(PLATFORM_ID) private platformId: any
   ) {
-    if (isPlatformBrowser(this.platformId)) {
-      console.log(this.windowRef.nativeWindow);
-    }
   }
   title = 'jabonline';
   ngOnInit(): void {
     this.cookie();
   }
   cookie() {
-    const cookieContainer = document.querySelector(".cookie-container");
-    const cookieButton = document.querySelector(".cookie-btn");
-    const cookieRefuseButton = document.querySelector(".cookie-btn2");
-    cookieButton.addEventListener("click", () => {
+    if (isPlatformBrowser(this.platformId)) {
+      const cookieContainer = this.document.querySelector(".cookie-container");
+      const cookieButton = this.document.querySelector(".cookie-btn");
+      const cookieRefuseButton = this.document.querySelector(".cookie-btn2");
+      cookieButton.addEventListener("click", () => {
         cookieContainer.classList.remove("active");
         localStorage.setItem("cookieBannerDisplayed", "true");
-    });
-    cookieRefuseButton.addEventListener("click", () => {
+      });
+      cookieRefuseButton.addEventListener("click", () => {
         cookieContainer.classList.remove("active");
-    })
-    setTimeout(() => {
+      })
+      setTimeout(() => {
         if (!localStorage.getItem("cookieBannerDisplayed"))
-            cookieContainer.classList.add("active");
-    }, 2000);
-}
+          cookieContainer.classList.add("active");
+      }, 2000);
+    }
+  }
 }

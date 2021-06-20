@@ -72,7 +72,8 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule,TransferHttpCacheModule,
+    AppRoutingModule,
+    TransferHttpCacheModule,
     BrowserAnimationsModule,
     NgxUsefulSwiperModule,
     MatFormFieldModule,
@@ -88,9 +89,9 @@ import { TransferHttpCacheModule } from '@nguniversal/common';
   ],
   providers: [
     { provide: ApiServiceService },
-    { provide: Address},
+    { provide: Address },
     { provide: Title },
-    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: LocationStrategy, useClass: PathLocationStrategy }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

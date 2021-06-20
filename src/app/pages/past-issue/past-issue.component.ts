@@ -19,7 +19,7 @@ export class PastIssueComponent implements OnInit, AfterViewInit {
   arcIssueArticleSubject: any;
   arcIssueArticleDetails: any;
 
-  constructor(public dialog: MatDialog, private routes: ActivatedRoute, private api: ApiServiceService, private add: Address, private router: Router, private title:Title) { }
+  constructor(public dialog: MatDialog, private routes: ActivatedRoute, private api: ApiServiceService, private add: Address, private router: Router, private title: Title) { }
   _basePath$ = this.add.baseAdd;
   pdfpath = this.add.pdfPath;
   imagepath = this.add.imagesPath;
@@ -28,16 +28,18 @@ export class PastIssueComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.title.setTitle('PastIssue: Jabonline');
-    
+
   }
   ngAfterViewInit() {
     const route = this.routes.snapshot.params.id;
     this.pastArcticles(route);
   }
- pastArcticles(id: any) {
-   this.api.arcIssueArticle(id).subscribe((res: any) => { this.pastArticle = res.arcIssueArticle; });
-   this.api.arcIssueArticleSubject(id).subscribe((res: any) => { this.arcIssueArticleSubject = res.arcIssueArticleSubject; }, err => { console.log(err.message); });
- }
+  pastArcticles(id: any) {
+    this.api.arcIssueArticle(id).subscribe((res: any) => { this.pastArticle = res.arcIssueArticle; });
+    this.api.arcIssueArticleSubject(id).subscribe((res: any) => {
+      setTimeout(() => this.arcIssueArticleSubject = res.arcIssueArticleSubject);
+    }, err => { console.log(err.message); });
+  }
 
   openDialog(data1: any): void {
     const dialogRef = this.dialog.open(DialogImages, {

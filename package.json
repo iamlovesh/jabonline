@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "postinstall": "ngcc",
     "dev:ssr": "ng run jabonline:serve-ssr",
-    "serve:ssr": "node dist/jabonline/server/main.js",
+    "serve:ssr": "node dist/server/main.js",
     "build:ssr": "ng build --prod && ng run jabonline:server:production",
     "prerender": "ng run jabonline:prerender"
   },
@@ -35,6 +35,7 @@
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
     "compression": "^1.7.4",
+    "domino": "^2.1.6",
     "express": "^4.15.2",
     "font-awesome": "^4.7.0",
     "hover.css": "^2.3.2",

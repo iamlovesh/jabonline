@@ -52,10 +52,10 @@ export class AbstractComponent implements OnInit, AfterViewInit {
 
   public getAbstractdata(id: any) {
     this.api.getAbstractDatavalue(id).subscribe(res => {
-      this.getAbstractDatavalues = res.getAbstractDatavalue;
-      this.keywords = res.getAbstractDatavalue[0].keywords.split(",");
-   
-
+      setTimeout(() => {
+        this.getAbstractDatavalues = res.getAbstractDatavalue;
+        this.keywords = res.getAbstractDatavalue[0].keywords.split(",");
+      });
     });
   }
 

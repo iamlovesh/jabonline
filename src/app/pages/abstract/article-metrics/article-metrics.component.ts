@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
-import {Chart} from 'chart.js';
+import { isPlatformBrowser } from '@angular/common';
+import { AfterViewInit, Component, Inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
+import { Chart } from 'chart.js';
 import { ApiServiceService } from 'src/app/api-service.service';
 
 @Component({
@@ -9,71 +10,76 @@ import { ApiServiceService } from 'src/app/api-service.service';
 })
 export class ArticleMetricsComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('metrics') metrics: any; 
+  @ViewChild('metrics') metrics: any;
   @Input() articleMetricId: any;
   canvas: any;
   articleMetrics: any;
   color1 = [];
   color2 = [];
-  Date =[];
-  download =[];
+  Date = [];
+  download = [];
   views = [];
   getTotalMetric: any;
-  constructor(private api: ApiServiceService) { }
+  constructor(
+    private api: ApiServiceService,
+    @Inject(PLATFORM_ID) private platformId: any
+  ) { }
 
   ngAfterViewInit() {
-     this.canvas = this.metrics.nativeElement;
-     this.articleMetrics = this.canvas.getContext('2d');
+    if (isPlatformBrowser(this.platformId)) {
+      this.canvas = this.metrics.nativeElement;
+      this.articleMetrics = this.canvas.getContext('2d');
       for (let i = 0; i < 120; i++) {
         this.color1.push('#17a2b8');
         this.color2.push('#fd7e14');
       }
       let myChart = new Chart(this.articleMetrics, {
-      type: 'line',
-      data: {
-        labels: this.Date,
-        datasets: [{
-          label: 'Abstract',
-          data: this.views,
-          backgroundColor: this.color1,
-          borderColor: ['#17a2b8'],
-          borderWidth: 1,
-          fill: false,
-          //lineTension: 0
+        type: 'line',
+        data: {
+          labels: this.Date,
+          datasets: [{
+            label: 'Abstract',
+            data: this.views,
+            backgroundColor: this.color1,
+            borderColor: ['#17a2b8'],
+            borderWidth: 1,
+            fill: false,
+            //lineTension: 0
+          },
+          {
+            label: 'PDF Download',
+            data: this.download,
+            backgroundColor: this.color2,
+            borderColor: ['#fd7e14'],
+            borderWidth: 1,
+            fill: false,
+            //lineTension: 0
+          }
+          ],
         },
-        {
-          label: 'PDF Download',
-          data: this.download,
-          backgroundColor: this.color2,
-          borderColor: ['#fd7e14'],
-          borderWidth: 1,
-          fill: false,
-          //lineTension: 0
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
         }
-      ],
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
+      });
+    }
   }
 
 
   ngOnInit(): void {
-    this.api.getArticleMetrics(this.articleMetricId).subscribe( res => { 
-      
-      for(let i =0; i<res.length;  i++) {
+    this.api.getArticleMetrics(this.articleMetricId).subscribe(res => {
+
+      for (let i = 0; i < res.length; i++) {
         let date1 = res[i].monthName + ' ' + res[i].yearname;
         this.Date.push(date1);
         this.download.push(res[i].Download);
         this.views.push(res[i].View);
-      } 
+      }
     });
 
     this.api.getTotalMetrics(this.articleMetricId).subscribe(res => {
@@ -82,6 +88,6 @@ export class ArticleMetricsComponent implements OnInit, AfterViewInit {
   }
 
 
-    
+
 
 }

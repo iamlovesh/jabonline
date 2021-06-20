@@ -6,7 +6,8 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Address} from '../../../address';
 import { ApiServiceService } from '../../../api-service.service';
-import * as $ from "jquery";
+
+declare var $: any;
 
 export interface DialogData {
   email: string;

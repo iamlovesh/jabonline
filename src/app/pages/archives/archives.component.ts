@@ -13,17 +13,19 @@ export class ArchivesComponent implements OnInit, AfterViewInit {
   archives: any;
   archivesYear: any;
 
-  constructor(private service: ApiServiceService, private route: Router, private title:Title, private add: Address) { }
+  constructor(private service: ApiServiceService, private route: Router, private title: Title, private add: Address) { }
   imagesPath$ = this.add.imagesPath
   ngOnInit(): void { }
 
   ngAfterViewInit() {
     this.title.setTitle('Archives: Jabonline');
-    this.service.showArchivessYear().subscribe((res: any) => { this.archivesYear = res.showArchivesYear; });
+    this.service.showArchivessYear().subscribe((res: any) => {
+      setTimeout(() => this.archivesYear = res.showArchivesYear);
+    });
     this.service.showArchivess().subscribe((res: any) => { this.archives = res.showArchives; });
   }
 
-  sendId(id: any){
+  sendId(id: any) {
     this.route.navigateByUrl(`/past/${id}`);
   }
 
