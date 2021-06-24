@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "node dist/server/main.js",
+    "build": "ng build --prod && ng run jabonline:server:production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -74,5 +74,9 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.0.2"
+  },
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
   }
 }

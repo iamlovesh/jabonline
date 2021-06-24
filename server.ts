@@ -60,7 +60,7 @@ function run(): void {
   const server = app();
   server.use(compression());
   server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
+    console.log(`Node Express server listening on port ${port}`);
   });
 }
 
