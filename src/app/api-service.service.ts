@@ -11,195 +11,195 @@ export class ApiServiceService {
   constructor(private http: HttpClient, private add: Address) { }
 
   public getCurrentIssueTitles():Observable<any> {
-    return this.http.get<any>(this.add.Add + 'current.php?getCurrentIssueTitle');
+    return this.http.get<any>(this.add.Api + 'current.php?getCurrentIssueTitle');
   }
 
   public currentIssueArticles():Observable<any> {
-    return this.http.get<any>(this.add.Add + 'current.php?currentIssueArticle');
+    return this.http.get<any>(this.add.Api + 'current.php?currentIssueArticle');
   }
 
   public currentIssueArticlesSubject(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'current.php?currentIssueArticleSubject');
+    return this.http.get<any>(this.add.Api + 'current.php?currentIssueArticleSubject');
   }
 
   public currentIssueArticleDetails(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'current.php?currentIssueArticleDetails');
+    return this.http.get<any>(this.add.Api + 'current.php?currentIssueArticleDetails');
   }
 
   public showArchivess():Observable<any> {
-    return this.http.get<any>(this.add.Add + 'past_issue.php?showArchives');
+    return this.http.get<any>(this.add.Api + 'past_issue.php?showArchives');
   }
 
   public showArchivessYear(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'past_issue.php?showArchivesYear');
+    return this.http.get<any>(this.add.Api + 'past_issue.php?showArchivesYear');
   }
 
   public onlinefirstArticles():Observable<any> {
-    return this.http.get<any>(this.add.Add + 'online_first.php?onlinefirstArticle');
+    return this.http.get<any>(this.add.Api + 'online_first.php?onlinefirstArticle');
   }
 
   public onlinefirstArticleSubject(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'online_first.php?onlinefirstArticleSubject');
+    return this.http.get<any>(this.add.Api + 'online_first.php?onlinefirstArticleSubject');
   }
   
   public onlinefirstArticleDetails(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'online_first.php?onlinefirstArticleDetails');
+    return this.http.get<any>(this.add.Api + 'online_first.php?onlinefirstArticleDetails');
   }
 
   public arcIssueArticleSubject(id: any):Observable<any> {
-    return this.http.get<any>(this.add.Add + `past-articles.php?arcIssueArticleSubject&issueid=${id}`);
+    return this.http.get<any>(this.add.Api + `past-articles.php?arcIssueArticleSubject&issueid=${id}`);
   }
 
   public arcIssueArticle(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `past-articles.php?arcIssueArticle&issueid=${id}`);
+    return this.http.get<any>(this.add.Api + `past-articles.php?arcIssueArticle&issueid=${id}`);
   }
 
   public arcIssueArticleDetails(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `past-articles.php?arcIssueArticleDetails&issueid=${id}`);
+    return this.http.get<any>(this.add.Api + `past-articles.php?arcIssueArticleDetails&issueid=${id}`);
   }
 
   public subscribeTOC(data: any, name: any):Observable<any> {
 
     if(name != '') {
-      return this.http.post<any>(this.add.Add + 'subscriber.php?checked',data);
+      return this.http.post<any>(this.add.Api + 'subscriber.php?checked',data);
     } else {
-      return this.http.post<any>(this.add.Add + 'subscriber.php?subscribe', data);
+      return this.http.post<any>(this.add.Api + 'subscriber.php?subscribe', data);
     }
   }
 
   public abstractHeader(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?abstractHeader&article_id=${id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?abstractHeader&article_id=${id}`);
   }
 
   public abstractMeta(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?abstractMeta&article_id=${id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?abstractMeta&article_id=${id}`);
   }
 
   public getAbstractDatavalue(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?getAbstractDatavalue&id=${id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?getAbstractDatavalue&id=${id}`);
   }
 
   public getArticleMetrics(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?getArticleMetrics&article_id=${id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?getArticleMetrics&article_id=${id}`);
   }
 
   public getTotalMetrics(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?getTotalMetrics&article_id=${id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?getTotalMetrics&article_id=${id}`);
   }
 
   public countView(_id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?updateCountView&countview_id=${_id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?updateCountView&countview_id=${_id}`);
   }
 
   public countDownload(_id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?updateCountDownload&countdownload_id=${_id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?updateCountDownload&countdownload_id=${_id}`);
   }
 
   public similarArticle(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?similarArticle&id=${id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?similarArticle&id=${id}`);
   }
 
 
   public relatedSearch(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `abstract-header.php?relatedSearch&id=${id}`);
+    return this.http.get<any>(this.add.Api + `abstract-header.php?relatedSearch&id=${id}`);
   }
 
   public authorArticles(data: any): Observable<any> {
-    return this.http.post<any>(this.add.Add + 'author_article.php?authorArticle', data);
+    return this.http.post<any>(this.add.Api + 'author_article.php?authorArticle', data);
   }
 
   public authorAffiliation(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `author_article.php?authorAffiliation&id=${id}`);
+    return this.http.get<any>(this.add.Api + `author_article.php?authorAffiliation&id=${id}`);
   }
 
   public submitManuscript(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `submit-manuscript.php`);
+    return this.http.get<any>(this.add.Api + `submit-manuscript.php`);
   }
 
   public authorsGuidelines(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `authors-guidelines.php`);
+    return this.http.get<any>(this.add.Api + `authors-guidelines.php`);
   }
 
   public termsConditions(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `terms-conditions.php`);
+    return this.http.get<any>(this.add.Api + `terms-conditions.php`);
   }
 
   public editorialBoard(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `editorial-board.php`);
+    return this.http.get<any>(this.add.Api + `editorial-board.php`);
   }
 
   public aboutUs(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `about_us.php`);
+    return this.http.get<any>(this.add.Api + `about_us.php`);
   }
 
   public commentArticle(data: any,id: any): Observable<any> {
-    return this.http.post<any>(this.add.Add + `comment_article.php?commentArticle&id=${id}`, data);
+    return this.http.post<any>(this.add.Api + `comment_article.php?commentArticle&id=${id}`, data);
   }
 
   public commentArticleFetch(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `comment_article.php?commentArticleFetch&id=${id}`);
+    return this.http.get<any>(this.add.Api + `comment_article.php?commentArticleFetch&id=${id}`);
   }
 
   public getMostViewArticleApi(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `most_viewed_api.php?getMostViewArticleApi`);
+    return this.http.get<any>(this.add.Api + `most_viewed_api.php?getMostViewArticleApi`);
   }
 
   public getMostViewedArticleApi(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `most_viewed_api.php?getMostViewedArticleApi`);
+    return this.http.get<any>(this.add.Api + `most_viewed_api.php?getMostViewedArticleApi`);
   }
 
 
   public getTrendingArticlesArticleApi(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `trending_articles.php?getTrending_articlesApi`);
+    return this.http.get<any>(this.add.Api + `trending_articles.php?getTrending_articlesApi`);
   }
 
   public getTrending_articles(): Observable<any> {
-    return this.http.get<any>(this.add.Add + `trending_articles.php?getTrending_articles`);
+    return this.http.get<any>(this.add.Api + `trending_articles.php?getTrending_articles`);
   }
 
   public contactForm(data: any): Observable<any> {
-    return this.http.post<any>(this.add.Add + 'contactus.php?contactForm', data);
+    return this.http.post<any>(this.add.Api + 'contactus.php?contactForm', data);
   }
 
   public newsAnnouncements(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'home.php?newsAnnouncements');
+    return this.http.get<any>(this.add.Api + 'home.php?newsAnnouncements');
   }
 
   public journamMatrix(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'metrics.php');
+    return this.http.get<any>(this.add.Api + 'metrics.php');
   }
 
   public getPublicationEthics(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'getPublicationEthics.php');
+    return this.http.get<any>(this.add.Api + 'getPublicationEthics.php');
   }
   public getGuidelinesPeerReviewers(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'getGuidelinesPeerReviewers.php');
+    return this.http.get<any>(this.add.Api + 'getGuidelinesPeerReviewers.php');
   }
   public getPolicies(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'getPolicies.php?getPolicies');
+    return this.http.get<any>(this.add.Api + 'getPolicies.php?getPolicies');
   }
 
   public getPoliciesById(id: any): Observable<any> {
-    return this.http.get<any>(this.add.Add + `getPolicies.php?getPoliciesById&policies_id=${id}`);
+    return this.http.get<any>(this.add.Api + `getPolicies.php?getPoliciesById&policies_id=${id}`);
   }
 
   public getEditorsChoice(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'getEditorsChoice.php?getEditorsChoice');
+    return this.http.get<any>(this.add.Api + 'getEditorsChoice.php?getEditorsChoice');
   }
 
   public searchArticle(data: any): Observable<any> {
-    return this.http.post<any>(this.add.Add + 'search.php', data);
+    return this.http.post<any>(this.add.Api + 'search.php', data);
   }
 
   public searchKeywords(data: any): Observable<any> {
-    return this.http.post<any>(this.add.Add + 'keywords.php', data);
+    return this.http.post<any>(this.add.Api + 'keywords.php', data);
   }
 
   public contactAdd(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'contactus.php?contact');
+    return this.http.get<any>(this.add.Api + 'contactus.php?contact');
   }
 
   public getStatistics(): Observable<any> {
-    return this.http.get<any>(this.add.Add + 'statistics.php');
+    return this.http.get<any>(this.add.Api + 'statistics.php');
   }
 }

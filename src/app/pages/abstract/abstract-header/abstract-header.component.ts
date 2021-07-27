@@ -58,14 +58,14 @@ export class AbstractHeaderComponent implements OnInit, AfterViewInit{
 
   previous() {
     // this.routes.queryParams.subscribe(res => { this.id = res.id }, err => { console.log(err.message); });
-    this.router.navigate(['/abstract.php'], { queryParams: { 'article_id': this.id - 1, sts:2}}).then(() => { window.location.reload(); });
+    this.router.navigate(['/abstract.php'], { queryParams: { 'article_id': this.id - 1, sts:2}});
     // this.api.abstractHeader(this.id - 1).subscribe((res: any) => { this.abstractHeader = res.abstractHeader;}, err => { console.log(err.message); });
     // this.api.authorAffiliation(this.id-1).subscribe((res: any) => { this.authorAffiliation = res.authorAffiliation[0];}, err => { console.log(err.message); });
   }
 
   next() {
     // this.routes.queryParams.subscribe(res => { this.id = res.id }, err => { console.log(err.message); });
-    this.router.navigate(['/abstract.php'], { queryParams: { 'article_id': +this.id + +1, sts:2 } }).then(() => {window.location.reload();});
+    this.router.navigate(['/abstract.php'], { queryParams: { 'article_id': +this.id + +1, sts:2 } });
     // this.api.abstractHeader(+this.id + +1).subscribe((res: any) => { this.abstractHeader = res.abstractHeader;}, err => { console.log(err.message); });
     // this.api.authorAffiliation(+this.id + +1).subscribe((res: any) => { this.authorAffiliation = res.authorAffiliation[0];}, err => { console.log(err.message); });
   }

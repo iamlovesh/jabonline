@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/address';
 import { ApiServiceService } from 'src/app/api-service.service';
@@ -31,7 +31,7 @@ export class AbstractComponent implements OnInit, AfterViewInit {
   keywords: any;
   str1:any
   str2:any
-  constructor(private routes: ActivatedRoute, private api: ApiServiceService, private router: Router, private add: Address) { 
+  constructor(private routes: ActivatedRoute, private api: ApiServiceService, private router: Router, private add: Address, private _renderer2: Renderer2, private readonly elementRef: ElementRef,) { 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -47,6 +47,12 @@ export class AbstractComponent implements OnInit, AfterViewInit {
     this.getAbstractdata(this.ids);
     this.similarArticle(this.ids);
     this.relatedSearchs(this.ids);
+    setTimeout(() => {
+      const _script$ = this._renderer2.createElement('script');
+      _script$.src = "//js.trendmd.com/trendmd.min.js";
+      _script$.setAttribute ('data-trendmdconfig', '{"journal_id":"80178","element":"#trendmd-suggestions"}');
+      this._renderer2.appendChild(this.elementRef.nativeElement, _script$);
+    }, 1000);
   }
 
 
@@ -64,7 +70,7 @@ export class AbstractComponent implements OnInit, AfterViewInit {
   }
 
   public selectArticle(id: any) {
-    this.router.navigate(['/abstract.php'], { queryParams: { article_id: id, sts: 2 } }).then(() => { window.location.reload(); });
+    this.router.navigate(['/abstract.php'], { queryParams: { article_id: id, sts: 2 } });
   }
 
   public relatedSearchs(id: any){

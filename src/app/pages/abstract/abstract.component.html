@@ -1,72 +1,180 @@
 <app-abstract-header></app-abstract-header>
 <div class="mt-lg-5 mt-4">
-    <div class="container-fluid px-lg-5 px-3">
-        <div class="row">
-            <div class="col-lg-3 col-sm-12 col-md-12 pr-lg-5 outer">
-                <div class="nav flex-column bg-white nav-pills shadow-sm inner" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <ng-container *ngFor="let getAbstractDatavalues of getAbstractDatavalues">
-                <a mat-button *ngIf="getAbstractDatavalues.long_desc" [ngClass]="(!_ids?'active':'')" class="nav-link text-left" id="v-pills-1-tab" data-toggle="pill"
-                    [href]="['#v-pills-1']" role="tab" attr.aria-controls="v-pills-1"
-                    aria-selected="false">Abstract</a>
-                
-                <a mat-button *ngIf="getAbstractDatavalues.fulltexts" [ngClass]="(_ids?'active':'')" class="nav-link text-left" id="v-pills-2-tab" data-toggle="pill"
-                    [href]="['#v-pills-2']" role="tab" attr.aria-controls="v-pills-2"
-                    aria-selected="false">
-                    HTML Full-Text
-                </a>
-                <a mat-button *ngIf="getAbstractDatavalues.reference" class="nav-link text-left" id="v-pills-3-tab" data-toggle="pill"
-                    [href]="['#v-pills-3']" role="tab" attr.aria-controls="v-pills-3"
-                    aria-selected="false">
-                    References
-                </a>
-                <a mat-button *ngIf="getAbstractDatavalues.material" class="nav-link text-left" id="v-pills-4-tab" data-toggle="pill"
-                    [href]="['#v-pills-4']" role="tab" attr.aria-controls="v-pills-4"
-                    aria-selected="false">
-                    Supplementary Material
-                </a>
-                <a mat-button class="nav-link text-left" id="v-pills-5-tab" data-toggle="pill"
-                    [href]="['#v-pills-5']" role="tab" attr.aria-controls="v-pills-5"
-                    aria-selected="false">
-                    Article Metrics
-                </a>
-                <a mat-button *ngIf="similarArticlesIsFound" class="nav-link text-left" id="v-pills-6-tab" data-toggle="pill"
-                    [href]="['#v-pills-6']" role="tab" attr.aria-controls="v-pills-6"
-                    aria-selected="false">
-                    Similar Articles
-                </a>
-                <a mat-button class="nav-link text-left"
-                    [href]="'mailto:editor@jabonline.in&amp;subject=Request permission on article with ID:'+ids+'&amp;body=Dear Publisher,%0A%0A I would like to use a part/the whole of the mentioned article in one of my publictions as titled below.%0A Format: Figure, Table, Text%0APublication date:%0AVolume (Issue):%0APage number(s):%0ATitle of article:%0A %0AThis material is to be reproduced for:%0ATitle:%0AEdition:%0AAuthor:%0APublisher:%0ANature of work:%0AAudience:%0ANo. of copies to be distributed:%0ARetail price per copy:%0AName:%0ACompany:%0AAddress:%0APhone:%0APlease guide me and send me instruction for re-use. %0AKind Regards '">Request Permission</a>
-                <a mat-button *ngIf="relatedSearchssIsFound" class="nav-link text-left" id="v-pills-8-tab" data-toggle="pill"
-                    [href]="['#v-pills-8']" role="tab" attr.aria-controls="v-pills-8"
-                    aria-selected="false">
-                    Related Search
-                </a>
-                <a mat-button class="nav-link text-left" target="_blank"
-                    [href]="'http://scholar.google.com/scholar_alerts?view_op=create_alert_options&hl=en&alert_query=allintitle:%22'+(getAbstractDatavalues.title | htmlEntityDecode | stripTag)+'%22&alert_params=hl%3Den%26as_sdt%3D2000'">
-                    Citiaion Alert By Google Scholar </a>
-                <a mat-button class="nav-link text-left" id="v-pills-9-tab" data-toggle="pill"
-                    [href]="['#v-pills-9']" role="tab" attr.aria-controls="v-pills-9"
-                    aria-selected="false">
-                    Comment On This Article
-                </a>
-            </ng-container>
-                </div>
-            </div>
-            <div class="col-lg-9 col-sm-12 col-md-12 mt-lg-0 mt-4">
-            <div class="bg-white">
-                <div class="tab-content" id="v-pills-tabContent">
-                <ng-container *ngFor="let getAbstractDatavalue of getAbstractDatavalues">
-                        <div [ngClass]="(!_ids?'active show':'')" class="tab-pane fade shadow-sm  p-4" id="v-pills-1" role="tabpanel"
-                             attr.aria-labelledby="v-pills-1-tab" >
-                            <p class="jab-color h6">Abstract</p>
-                            <p [ngStyle]="{'line-height':'28px','font-size':'15px'}" [innerHTML]="getAbstractDatavalue.long_desc | htmlEntityDecode | safeHtml"></p>
-                            <br><br>
-                            <span class="flex-row"><span class="jab-color h6 mr-2 mt-4">Keywords: </span>
-                            <ng-container *ngFor="let keywordss of keywords">
-                                <a class="mr-lg-2 mrl-0 ui">
-                                    <p class="cursor ui tag label text-nowrap table-group" [innerHTML]="keywordss | htmlEntityDecode | stripTag | safeHtml" (click)="onKeyword(keywordss)"></p>
-                                </a>
-                                <!-- <ng-container *ngIf="l; then l1 else l2"></ng-container>
+  <div class="container-fluid px-lg-5 px-3">
+    <div class="row">
+      <div class="col-lg-3 col-sm-12 col-md-12 pr-lg-5 outer">
+        <div
+          class="nav flex-column bg-white nav-pills shadow-sm inner"
+          id="v-pills-tab"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          <ng-container
+            *ngFor="let getAbstractDatavalues of getAbstractDatavalues"
+          >
+            <a
+              mat-button
+              *ngIf="getAbstractDatavalues.long_desc"
+              [ngClass]="!_ids ? 'active' : ''"
+              class="nav-link text-left"
+              id="v-pills-1-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-1']"
+              role="tab"
+              attr.aria-controls="v-pills-1"
+              aria-selected="false"
+              >Abstract</a
+            >
+
+            <a
+              mat-button
+              *ngIf="getAbstractDatavalues.fulltexts"
+              [ngClass]="_ids ? 'active' : ''"
+              class="nav-link text-left"
+              id="v-pills-2-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-2']"
+              role="tab"
+              attr.aria-controls="v-pills-2"
+              aria-selected="false"
+            >
+              HTML Full-Text
+            </a>
+            <a
+              mat-button
+              *ngIf="getAbstractDatavalues.reference"
+              class="nav-link text-left"
+              id="v-pills-3-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-3']"
+              role="tab"
+              attr.aria-controls="v-pills-3"
+              aria-selected="false"
+            >
+              References
+            </a>
+            <a
+              mat-button
+              *ngIf="getAbstractDatavalues.material"
+              class="nav-link text-left"
+              id="v-pills-4-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-4']"
+              role="tab"
+              attr.aria-controls="v-pills-4"
+              aria-selected="false"
+            >
+              Supplementary Material
+            </a>
+            <a
+              mat-button
+              class="nav-link text-left"
+              id="v-pills-5-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-5']"
+              role="tab"
+              attr.aria-controls="v-pills-5"
+              aria-selected="false"
+            >
+              Article Metrics
+            </a>
+            <a
+              mat-button
+              *ngIf="similarArticlesIsFound"
+              class="nav-link text-left"
+              id="v-pills-6-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-6']"
+              role="tab"
+              attr.aria-controls="v-pills-6"
+              aria-selected="false"
+            >
+              Similar Articles
+            </a>
+            <a
+              mat-button
+              class="nav-link text-left"
+              [href]="
+                'mailto:editor@jabonline.in&amp;subject=Request permission on article with ID:' +
+                ids +
+                '&amp;body=Dear Publisher,%0A%0A I would like to use a part/the whole of the mentioned article in one of my publictions as titled below.%0A Format: Figure, Table, Text%0APublication date:%0AVolume (Issue):%0APage number(s):%0ATitle of article:%0A %0AThis material is to be reproduced for:%0ATitle:%0AEdition:%0AAuthor:%0APublisher:%0ANature of work:%0AAudience:%0ANo. of copies to be distributed:%0ARetail price per copy:%0AName:%0ACompany:%0AAddress:%0APhone:%0APlease guide me and send me instruction for re-use. %0AKind Regards '
+              "
+              >Request Permission</a
+            >
+            <a
+              mat-button
+              *ngIf="relatedSearchssIsFound"
+              class="nav-link text-left"
+              id="v-pills-8-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-8']"
+              role="tab"
+              attr.aria-controls="v-pills-8"
+              aria-selected="false"
+            >
+              Related Search
+            </a>
+            <a
+              mat-button
+              class="nav-link text-left"
+              target="_blank"
+              [href]="
+                'http://scholar.google.com/scholar_alerts?view_op=create_alert_options&hl=en&alert_query=allintitle:%22' +
+                (getAbstractDatavalues.title | htmlEntityDecode | stripTag) +
+                '%22&alert_params=hl%3Den%26as_sdt%3D2000'
+              "
+            >
+              Citiaion Alert By Google Scholar
+            </a>
+            <a
+              mat-button
+              class="nav-link text-left"
+              id="v-pills-9-tab"
+              data-toggle="pill"
+              [href]="['#v-pills-9']"
+              role="tab"
+              attr.aria-controls="v-pills-9"
+              aria-selected="false"
+            >
+              Comment On This Article
+            </a>
+          </ng-container>
+        </div>
+      </div>
+      <div class="col-lg-9 col-sm-12 col-md-12 mt-lg-0 mt-4">
+        <div class="bg-white">
+          <div class="tab-content" id="v-pills-tabContent">
+            <ng-container
+              *ngFor="let getAbstractDatavalue of getAbstractDatavalues"
+            >
+              <div
+                [ngClass]="!_ids ? 'active show' : ''"
+                class="tab-pane fade shadow-sm p-4"
+                id="v-pills-1"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-1-tab"
+              >
+                <p class="jab-color h6">Abstract</p>
+                <p
+                  [ngStyle]="{ 'line-height': '28px', 'font-size': '15px' }"
+                  [innerHTML]="
+                    getAbstractDatavalue.long_desc | htmlEntityDecode | safeHtml
+                  "
+                ></p>
+                <br /><br />
+                <span class="flex-row"
+                  ><span class="jab-color h6 mr-2 mt-4">Keywords: </span>
+                  <ng-container *ngFor="let keywordss of keywords">
+                    <a class="mr-lg-2 mrl-0 ui">
+                      <p
+                        class="cursor ui tag label text-nowrap table-group"
+                        [innerHTML]="
+                          keywordss | htmlEntityDecode | stripTag | safeHtml
+                        "
+                        (click)="onKeyword(keywordss)"
+                      ></p>
+                    </a>
+                    <!-- <ng-container *ngIf="l; then l1 else l2"></ng-container>
                                 <ng-template #l1>
                                     <a class="mr-lg-2 mrl-0 table-group ui tag label">
                                         <p class="mt-lg-4 mt-0 cursor mb-0" [innerHTML]="keywordss | htmlEntityDecode" (click)="onKeyword(keywordss)"></p>
@@ -77,74 +185,224 @@
                                         <p class="mt-lg-4 mt-0 cursor mb-0" [innerHTML]="keywordss+',' | htmlEntityDecode" (click)="onKeyword(keywordss)"></p>
                                     </a>
                                 </ng-template> -->
-                            </ng-container>
-                            </span>
-                            <br><br>
-                            <hr class="mb-4" style="color:#888888;">
-                            <!-- <span class="d-flex flex-row"> -->
-                                <p><span class="jab-color h6 mr-2">Citation:</span><span [innerHTML]="getAbstractDatavalue.article_cite | htmlEntityDecode | stripTag | safeHtml"></span></p>
-                            <!-- </span> -->
-                            <!-- <span class="d-flex flex-row"> -->
-                                <p><span class="jab-color h6 mr-2">Copyright:</span>Author(s). This is an Open Access article distributed under the terms of the<a [href]="['http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US']" target="_new"> Creative Commons Attribution Non-Commercial License,</a>  which permits non-commercial re-use, distribution, and reproduction in any medium, provided the original work is properly cited.</p>
-                            <!-- </span> -->
-                        </div>
-                        <div [ngClass]="(_ids?'active show':'')" class="tab-pane fade shadow-sm p-4" id="v-pills-2" role="tabpanel" 
-                            attr.aria-labelledby="v-pills-2-tab" ><p class="jab-color h6 mb-4">HTML Full-Text</p><app-full-html [fullHtml]="getAbstractDatavalue.fulltexts"></app-full-html></div>
-                        <div class="tab-pane fade shadow-sm p-4" id="v-pills-3" role="tabpanel"
-                            attr.aria-labelledby="v-pills-3-tab" >
-                            <p class="jab-color h6 mb-4">References</p>
-                            <div [innerHTML]="getAbstractDatavalue.reference | htmlEntityDecode | safeHtml"></div>
-                        </div>
-                        <div class="tab-pane fade shadow-sm p-4" id="v-pills-4" role="tabpanel"
-                            attr.aria-labelledby="v-pills-4-tab"><a [href]="[(getAbstractDatavalue.material)?imagePath2+getAbstractDatavalue.material:'']" mat-raised-button class="bg-info text-white card-link">{{(getAbstractDatavalue.material)?'Supplementary Material PDF':'Not Found'}}</a></div>
-                        <div class="tab-pane fade shadow-sm p-4" id="v-pills-5" role="tabpanel"
-                            attr.aria-labelledby="v-pills-5-tab"><app-article-metrics [articleMetricId]="getAbstractDatavalue.article_id"></app-article-metrics></div>
-                        <div class="tab-pane fade shadow-sm p-4" id="v-pills-6" role="tabpanel"
-                            attr.aria-labelledby="v-pills-6-tab">
-                            <p class="h6 jab-color mb-4">Similar Articles</p>
-                            <div class="card card-body mb-3 shadow-sm bg-light" *ngFor="let similarArticle of similarArticles">
-                                    <a (click)="selectArticle(similarArticle.id)" class="card-link text-secondary" [ngStyle]="{'cursor':'pointer'}">
-                                        <blockquote class="blockquote mb-0">
-                                        <p class="mb-0 h6 jab-color" [innerHTML]="similarArticle.title | htmlEntityDecode | safeHtml"></p>
-                                        <footer class="blockquote-footer d-flex flex-row mb-0 " [innerHTML]="similarArticle.authors | htmlEntityDecode | rmNumber"></footer>
-                                    </blockquote>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade shadow-sm p-4" id="v-pills-8" role="tabpanel"
-                            attr.aria-labelledby="v-pills-8-tab">
-                            <p class="h6 jab-color mb-4">Related Search</p>
-                            <p class="mb-4">By author names</p>
-
-                            <table>
-                                <tbody>
-                                    <tr *ngFor="let relatedSearchss of relatedSearchss">
-                                        <td>{{relatedSearchss}}</td>
-                                        <td class="text-center"><span class="mx-3">[ <a class=" card-link " [href]="'https://www.ncbi.nlm.nih.gov/pubmed/?term='+relatedSearchss"
-                                                target="_blank">PubMed</a> ] </span></td>
-                                        <td class="text-center">
-                                            <span>[ <a class=" card-link " [href]="'https://scholar.google.co.in/scholar?as_q=&num=10&btnG=Search+Scholar&as_epq=&as_oq=&as_eq=&as_occt=any&as_sauthors='+relatedSearchss+'&as_publication=&as_ylo=&as_yhi=&as_allsubj=all&hl=en&lr='"
-                                                target="_blank">Google Scholar</a> ]</span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <p class="my-4">By article title</p>
-                            <div>
-                                <ul>
-                                    <li ><a class="card-link" [href]="'http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=pubmed&amp;term='+(getAbstractDatavalue.title | htmlEntityDecode | stripTag)" target="_blank">Related
-                                        Article in PubMed</a></li>
-                                    <li><a class="card-link" [href]="'http://scholar.google.com/scholar?q='+(getAbstractDatavalue.title | htmlEntityDecode | stripTag)" target="_blank">Related
-                                        Article in Google Scholar </a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade shadow-sm p-lg-4 p-3" id="v-pills-9" role="tabpanel"
-                            attr.aria-labelledby="v-pills-9-tab"><app-article-comment [articleComment]="getAbstractDatavalue.article_id"></app-article-comment></div>
-                </ng-container>
+                  </ng-container>
+                </span>
+                <br /><br />
+                <hr class="mb-4" style="color: #888888" />
+                <!-- <span class="d-flex flex-row"> -->
+                <p>
+                  <span class="jab-color h6 mr-2">Citation:</span
+                  ><span
+                    [innerHTML]="
+                      getAbstractDatavalue.article_cite
+                        | htmlEntityDecode
+                        | stripTag
+                        | safeHtml
+                    "
+                  ></span>
+                </p>
+                <!-- </span> -->
+                <!-- <span class="d-flex flex-row"> -->
+                <p>
+                  <span class="jab-color h6 mr-2">Copyright:</span>Author(s).
+                  This is an Open Access article distributed under the terms of
+                  the<a
+                    [href]="[
+                      'http://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US'
+                    ]"
+                    target="_new"
+                  >
+                    Creative Commons Attribution Non-Commercial License,</a
+                  >
+                  which permits non-commercial re-use, distribution, and
+                  reproduction in any medium, provided the original work is
+                  properly cited.
+                </p>
+                <!-- </span> -->
+                <div id="trendmd-suggestions"></div>
+              </div>
+              <div
+                [ngClass]="_ids ? 'active show' : ''"
+                class="tab-pane fade shadow-sm p-4"
+                id="v-pills-2"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-2-tab"
+              >
+                <p class="jab-color h6 mb-4">HTML Full-Text</p>
+                <app-full-html
+                  [fullHtml]="getAbstractDatavalue.fulltexts"
+                ></app-full-html>
+              </div>
+              <div
+                class="tab-pane fade shadow-sm p-4"
+                id="v-pills-3"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-3-tab"
+              >
+                <p class="jab-color h6 mb-4">References</p>
+                <div
+                  [innerHTML]="
+                    getAbstractDatavalue.reference | htmlEntityDecode | safeHtml
+                  "
+                ></div>
+              </div>
+              <div
+                class="tab-pane fade shadow-sm p-4"
+                id="v-pills-4"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-4-tab"
+              >
+                <a
+                  [href]="[
+                    getAbstractDatavalue.material
+                      ? imagePath2 + getAbstractDatavalue.material
+                      : ''
+                  ]"
+                  mat-raised-button
+                  class="bg-info text-white card-link"
+                  >{{
+                    getAbstractDatavalue.material
+                      ? "Supplementary Material PDF"
+                      : "Not Found"
+                  }}</a
+                >
+              </div>
+              <div
+                class="tab-pane fade shadow-sm p-4"
+                id="v-pills-5"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-5-tab"
+              >
+                <app-article-metrics
+                  [articleMetricId]="getAbstractDatavalue.article_id"
+                ></app-article-metrics>
+              </div>
+              <div
+                class="tab-pane fade shadow-sm p-4"
+                id="v-pills-6"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-6-tab"
+              >
+                <p class="h6 jab-color mb-4">Similar Articles</p>
+                <div
+                  class="card card-body mb-3 shadow-sm bg-light"
+                  *ngFor="let similarArticle of similarArticles"
+                >
+                  <a
+                    (click)="selectArticle(similarArticle.id)"
+                    class="card-link text-secondary"
+                    [ngStyle]="{ cursor: 'pointer' }"
+                  >
+                    <blockquote class="blockquote mb-0">
+                      <p
+                        class="mb-0 h6 jab-color"
+                        [innerHTML]="
+                          similarArticle.title | htmlEntityDecode | safeHtml
+                        "
+                      ></p>
+                      <footer
+                        class="blockquote-footer d-flex flex-row mb-0"
+                        [innerHTML]="
+                          similarArticle.authors | htmlEntityDecode | rmNumber
+                        "
+                      ></footer>
+                    </blockquote>
+                  </a>
                 </div>
-            </div>
-            </div>
+              </div>
+              <div
+                class="tab-pane fade shadow-sm p-4"
+                id="v-pills-8"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-8-tab"
+              >
+                <p class="h6 jab-color mb-4">Related Search</p>
+                <p class="mb-4">By author names</p>
+
+                <table>
+                  <tbody>
+                    <tr *ngFor="let relatedSearchss of relatedSearchss">
+                      <td>{{ relatedSearchss }}</td>
+                      <td class="text-center">
+                        <span class="mx-3"
+                          >[
+                          <a
+                            class="card-link"
+                            [href]="
+                              'https://www.ncbi.nlm.nih.gov/pubmed/?term=' +
+                              relatedSearchss
+                            "
+                            target="_blank"
+                            >PubMed</a
+                          >
+                          ]
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <span
+                          >[
+                          <a
+                            class="card-link"
+                            [href]="
+                              'https://scholar.google.co.in/scholar?as_q=&num=10&btnG=Search+Scholar&as_epq=&as_oq=&as_eq=&as_occt=any&as_sauthors=' +
+                              relatedSearchss +
+                              '&as_publication=&as_ylo=&as_yhi=&as_allsubj=all&hl=en&lr='
+                            "
+                            target="_blank"
+                            >Google Scholar</a
+                          >
+                          ]</span
+                        >
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p class="my-4">By article title</p>
+                <div>
+                  <ul>
+                    <li>
+                      <a
+                        class="card-link"
+                        [href]="
+                          'http://www.ncbi.nlm.nih.gov/sites/entrez?cmd=search&amp;db=pubmed&amp;term=' +
+                          (getAbstractDatavalue.title
+                            | htmlEntityDecode
+                            | stripTag)
+                        "
+                        target="_blank"
+                        >Related Article in PubMed</a
+                      >
+                    </li>
+                    <li>
+                      <a
+                        class="card-link"
+                        [href]="
+                          'http://scholar.google.com/scholar?q=' +
+                          (getAbstractDatavalue.title
+                            | htmlEntityDecode
+                            | stripTag)
+                        "
+                        target="_blank"
+                        >Related Article in Google Scholar
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade shadow-sm p-lg-4 p-3"
+                id="v-pills-9"
+                role="tabpanel"
+                attr.aria-labelledby="v-pills-9-tab"
+              >
+                <app-article-comment
+                  [articleComment]="getAbstractDatavalue.article_id"
+                ></app-article-comment>
+              </div>
+            </ng-container>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

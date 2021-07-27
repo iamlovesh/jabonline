@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  host: 'https://jabonline.in/',
+  host: 'http://jab.ubihrm.xyz/',
   production: false,
   site_url_regex: new RegExp('https://www.geekstrick.com', 'gmi'),
   site_url: 'https://www.geekstrick.com',

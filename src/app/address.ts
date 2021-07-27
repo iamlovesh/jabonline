@@ -11,6 +11,7 @@ export class Address {
     // imagesPath = 'http://localhost/jabonline.in/cms/php/images/';
 
     Add = environment.host;
+    Api = environment.host+'api/';
     pdfPath = this.Add+'admin/php/uploads/';
     pdfPath2 = this.Add+'admin/php/uploadss/';
     imagesPath = this.Add+'cms/php/images/';

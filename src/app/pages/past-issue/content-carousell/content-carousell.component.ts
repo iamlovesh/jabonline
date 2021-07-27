@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,9 @@ declare var $: any;
 
 export interface DialogData {
   email: string;
+}
+export interface DialogData {
+  image: any;
 }
 
 @Component({
@@ -48,6 +51,14 @@ export class ContentCarousellComponent implements OnInit {
    
     }
   }
+
+  openDialogg(data1: any): void {
+    const dialogRef = this.dialog.open(DialogImages, {
+      data: { image : data1 }
+    });
+
+  }
+
   openDialog(): void {
     const dialogRef = this.dialog.open(tocDialog, {
       data: { email: this.email }
@@ -66,9 +77,32 @@ export class ContentCarousellComponent implements OnInit {
       });
     });
   }
+  @ViewChild("wordOfOnTheCover") wordOfOnTheCover: ElementRef;
+  hiding: boolean = false;
+
+  onTheCover(data: any) {
+    this.hiding = true;
+    this.wordOfOnTheCover.nativeElement.innerText = data;
+  }
 
 }
 
+@Component({
+  selector: 'dialog-images',
+  templateUrl: 'dialog-images.html',
+})
+export class DialogImages {
+
+constructor(
+  public dialogRef: MatDialogRef < DialogImages >, 
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+onNoClick(): void {
+
+  this.dialogRef.close();
+}
+
+}
 
 @Component({
   selector: 'toc',
@@ -97,4 +131,5 @@ export class tocDialog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+  
 }

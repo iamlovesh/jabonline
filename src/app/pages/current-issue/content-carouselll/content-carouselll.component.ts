@@ -10,6 +10,10 @@ import { ApiServiceService } from '../../../api-service.service';
 export interface DialoggData  {
   email: string;
 }
+export interface DialogData {
+  image: any;
+}
+
 
 @Component({
   selector: 'app-content-carouselll',
@@ -59,6 +63,12 @@ export class ContentCarouselllComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  openDialog(data1: any): void {
+    const dialogRef = this.dialog.open(DialogImages, {
+      data: { image : data1 }
+    });
+
+  }
 
 }
 
@@ -90,4 +100,22 @@ export class tocDialoog {
   onNoClick(): void {
     this.dialogRef.close();
   }
+}
+
+
+@Component({
+  selector: 'dialog-images',
+  templateUrl: 'dialog-images.html',
+})
+export class DialogImages {
+
+constructor(
+  public dialogRef: MatDialogRef < DialogImages >, 
+  @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+
+onNoClick(): void {
+
+  this.dialogRef.close();
+}
+
 }
