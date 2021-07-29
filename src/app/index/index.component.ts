@@ -9,36 +9,36 @@ import { ApiServiceService } from '../api-service.service';
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+  styleUrls: ['./index.component.css'],
 })
-export class IndexComponent implements OnInit, AfterViewInit {
-
-
-  sliderCard = [{
-    title: "Latest Articles",
-    subTitle: "Online first version of articles that are not yet assigned to an issue",
-    showAll: "/onlinefirst",
-    slideLoop:"onlinefirstArticle",
-  },
+export class IndexComponent implements OnInit {
+  sliderCard = [
     {
-      title: "Current Issue",
-      subTitle: "",
-      showAll: "/current",
-      slideLoop: "currentIssueArticles",
+      title: 'Latest Articles',
+      subTitle:
+        'Online first version of articles that are not yet assigned to an issue',
+      showAll: '/onlinefirst',
+      slideLoop: 'onlinefirstArticle',
     },
     {
-      title: "Trending Articles",
-      subTitle: "Rankings are updated daily for previous 30 days",
-      showAll: "/trendingArticles",
-      slideLoop: "getTrending_articles",
+      title: 'Current Issue',
+      subTitle: '',
+      showAll: '/current',
+      slideLoop: 'currentIssueArticles',
     },
     {
-      title: "Most Viewed",
-      subTitle: "",
-      showAll: "/mostviewed",
-      slideLoop: "getMostViewArticleApi",
-    }
-];
+      title: 'Trending Articles',
+      subTitle: 'Rankings are updated daily for previous 30 days',
+      showAll: '/trendingArticles',
+      slideLoop: 'getTrending_articles',
+    },
+    {
+      title: 'Most Viewed',
+      subTitle: '',
+      showAll: '/mostviewed',
+      slideLoop: 'getMostViewArticleApi',
+    },
+  ];
 
   configg: SwiperOptions = {
     pagination: { el: '.swiper-pagination', clickable: true },
@@ -46,23 +46,23 @@ export class IndexComponent implements OnInit, AfterViewInit {
     allowTouchMove: true,
     breakpoints: {
       1024: {
-        slidesPerView: 1
+        slidesPerView: 1,
       },
       500: {
-        slidesPerView: 1
+        slidesPerView: 1,
       },
       400: {
-        slidesPerView: 1
+        slidesPerView: 1,
       },
       300: {
-        slidesPerView: 1
-      }
+        slidesPerView: 1,
+      },
     },
     navigation: {
       nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
+      prevEl: '.swiper-button-prev',
     },
-    loop: false
+    loop: false,
   };
 
   config: SwiperOptions = {
@@ -71,23 +71,23 @@ export class IndexComponent implements OnInit, AfterViewInit {
     allowTouchMove: true,
     breakpoints: {
       1024: {
-        slidesPerView: 4
+        slidesPerView: 4,
       },
       500: {
-        slidesPerView: 3
+        slidesPerView: 3,
       },
       400: {
-        slidesPerView: 2
+        slidesPerView: 2,
       },
       300: {
-        slidesPerView: 1
-      }
+        slidesPerView: 1,
+      },
     },
     navigation: {
       nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
+      prevEl: '.swiper-button-prev',
     },
-    loop: false
+    loop: false,
   };
   getMostViewArticleApi: any;
   currentIssueArticles: Observable<any>;
@@ -98,26 +98,48 @@ export class IndexComponent implements OnInit, AfterViewInit {
   getEditorsChoice: any;
   statisticsRecords: any;
 
-  constructor(private api:ApiServiceService,private add: Address, private title:Title, private router: Router) { }
+  constructor(
+    private api: ApiServiceService,
+    private add: Address,
+    private title: Title,
+    private router: Router
+  ) {}
   imagePath = this.add.imagesPath;
   assetsI = this.add.assetsI;
   assets = this.add.assets;
   ngOnInit(): void {
-    // this.title.setTitle('Index: Jabonline');
+    this.title.setTitle('JABB');
+    this.api.onlinefirstArticles().subscribe((res: any) => {
+      this.onlinefirstArticle = res.onlinefirstArticle;
+    });
+    this.api.currentIssueArticles().subscribe((res) => {
+      this.currentIssueArticles = res.currentIssueArticle;
+    });
+    this.api.getMostViewArticleApi().subscribe((res) => {
+      this.getMostViewArticleApi = res.getMostViewArticleApi;
+    });
+    this.api.getTrending_articles().subscribe((res) => {
+      this.getTrending_articles = res.getTrending_articles;
+    });
+    this.api.newsAnnouncements().subscribe((res) => {
+      this.newsAnnouncements = res.newsAnnouncements;
+    });
+    this.api.journamMatrix().subscribe((res) => {
+      this.journamMatrix = [res];
+    });
+    this.api.getEditorsChoice().subscribe((res) => {
+      this.getEditorsChoice = res.getEditorsChoice;
+    });
+    this.api.getStatistics().subscribe((res) => {
+      this.statisticsRecords = [res];
+    });
   }
 
   editorChoice(id: any) {
-    this.router.navigate(['/abstract.php'], { queryParams: { article_id: id, sts:2}}).then(() => {window.location.reload()});
-  }
-
-  ngAfterViewInit() {
-    this.api.onlinefirstArticles().subscribe((res: any) => { this.onlinefirstArticle = res.onlinefirstArticle; });
-    this.api.currentIssueArticles().subscribe(res => { this.currentIssueArticles = res.currentIssueArticle; });
-    this.api.getMostViewArticleApi().subscribe(res => { this.getMostViewArticleApi = res.getMostViewArticleApi; });
-    this.api.getTrending_articles().subscribe(res => { this.getTrending_articles = res.getTrending_articles; });
-    this.api.newsAnnouncements().subscribe(res => { this.newsAnnouncements = res.newsAnnouncements; });
-    this.api.journamMatrix().subscribe(res => { this.journamMatrix = [res]; });
-    this.api.getEditorsChoice().subscribe(res => { this.getEditorsChoice = res.getEditorsChoice; });
-    this.api.getStatistics().subscribe(res => { this.statisticsRecords = [res]; });
+    this.router
+      .navigate(['/abstract.php'], { queryParams: { article_id: id, sts: 2 } })
+      .then(() => {
+        window.location.reload();
+      });
   }
 }

@@ -14,7 +14,13 @@
               [ngStyle]="{ cursor: 'pointer' }"
               class="img-fluid img-responsive mb-lg-0 mb-5"
               style="height: 203px; width: 156px"
-              (click)="openDialogg(imgpath + arcIssueArticleDetails[2])"
+              (click)="
+                openDialogg(
+                  arcIssueArticleDetails[2]
+                    ? imgpath + arcIssueArticleDetails[2]
+                    : assets + 'cover-20.jpg'
+                )
+              "
             />
           </div>
           <div class="col-lg-9 col-sm-12">

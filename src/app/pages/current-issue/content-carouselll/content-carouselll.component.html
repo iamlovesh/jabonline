@@ -12,7 +12,13 @@
                   ? imgpath + currentIssueArticleDetails[2]
                   : assets + 'cover-20.jpg'
               }}"
-              (click)="openDialog(imgpath + currentIssueArticleDetails[2])"
+              (click)="
+                openDialog(
+                  currentIssueArticleDetails[2]
+                    ? imgpath + currentIssueArticleDetails[2]
+                    : assets + 'cover-20.jpg'
+                )
+              "
               [ngStyle]="{ cursor: 'pointer' }"
               class="img-fluid img-responsive mb-lg-0 mb-5"
             />

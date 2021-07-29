@@ -36,7 +36,7 @@ export class MostViewedComponent implements OnInit {
   }
 
   abstract(id: any, idss: any) {
-    this.router.navigate(['/abstract.php'], { queryParams: { 'article_id': id, 'ids': idss, sts: 2 } }).then(() => { window.location.reload(); });
+    this.router.navigate(['/abstract.php'], { queryParams: { 'article_id': id, 'ids': idss, sts: 2 } });
     this.countView(id);
   }
 
