@@ -136,10 +136,8 @@ export class IndexComponent implements OnInit {
   }
 
   editorChoice(id: any) {
-    this.router
-      .navigate(['/abstract.php'], { queryParams: { article_id: id, sts: 2 } })
-      .then(() => {
-        window.location.reload();
-      });
+    this.router.navigate(['/abstract.php'], {
+      queryParams: { article_id: id, sts: 2 },
+    });
   }
 }
