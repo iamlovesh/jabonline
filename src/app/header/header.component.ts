@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  OnInit,
-  Renderer2,
-} from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
@@ -19,9 +13,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private add: Address,
     private router: Router,
-    private meta: Meta,
-    private _renderer2: Renderer2,
-    private elementRef: ElementRef
+    private meta: Meta
   ) {}
   assets = this.add.assets;
 
@@ -73,21 +65,5 @@ export class HeaderComponent implements OnInit {
       document.getElementById('logo').style.fontSize = '35px';
       document.getElementById('dropdown').style.marginTop = '1.75rem';
     }
-  }
-  ngAfterViewInit() {
-    setTimeout(() => {
-      const script = this._renderer2.createElement('script');
-      script.async = true;
-      script.src = 'https://www.googletagmanager.com/gtag/js?id=UA-1259444-141';
-      this._renderer2.appendChild(this.elementRef.nativeElement, script);
-
-      window['dataLayer'] = window['dataLayer'] || [];
-      function gtag() {
-        window['dataLayer'].push({
-          js: new Date(),
-          config: 'UA-1259444-141',
-        });
-      }
-    }, 1000);
   }
 }
