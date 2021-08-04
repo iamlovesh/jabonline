@@ -156,8 +156,8 @@
             <ng-container *ngFor="let slide of onlinefirstArticle">
               <div class="swiper-slide">
                 <a
-                  [routerLink]="['/abstract.php']"
-                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  (click)="editorChoice(slide.article_id)"
+                  style="cursor: pointer"
                   class="card-link text-dark"
                 >
                   <div class="card mx-3 mb-2">
@@ -192,8 +192,8 @@
             <ng-container *ngFor="let slide of currentIssueArticles">
               <div class="swiper-slide">
                 <a
-                  [routerLink]="['/abstract.php']"
-                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  (click)="editorChoice(slide.article_id)"
+                  style="cursor: pointer"
                   class="card-link text-dark"
                 >
                   <div class="card mx-3 mb-2 make-it-slow">
@@ -228,8 +228,8 @@
             <ng-container *ngFor="let slide of getTrending_articles">
               <div class="swiper-slide">
                 <a
-                  [routerLink]="['/abstract.php']"
-                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  (click)="editorChoice(slide.article_id)"
+                  style="cursor: pointer"
                   class="card-link text-dark"
                 >
                   <div class="card mx-3 mb-2 make-it-slow">
@@ -266,8 +266,8 @@
             <ng-container *ngFor="let slide of getMostViewArticleApi">
               <div class="swiper-slide">
                 <a
-                  [routerLink]="['/abstract.php']"
-                  [queryParams]="{ article_id: slide.article_id, sts: 2 }"
+                  (click)="editorChoice(slide.article_id)"
+                  style="cursor: pointer"
                   class="card-link text-dark"
                 >
                   <div class="card mx-3 mb-2 make-it-slow">
