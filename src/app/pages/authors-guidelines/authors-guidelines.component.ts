@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { interval } from 'rxjs';
 import { ApiServiceService } from 'src/app/api-service.service';
+import { Unsubscriber } from 'src/app/utility/unsubscriber';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -9,17 +10,24 @@ import { environment } from 'src/environments/environment';
   templateUrl: './authors-guidelines.component.html',
   styleUrls: ['./authors-guidelines.component.css']
 })
-export class AuthorsGuidelinesComponent implements OnInit {
+export class AuthorsGuidelinesComponent extends Unsubscriber implements OnInit {
   authorsGuideline: any;
 
   @Input()
   slug= 'authorsguideline';
   
-  constructor(private api: ApiServiceService, private title:Title) { }
+  constructor(
+    private api: ApiServiceService,
+    private title:Title
+  ) { 
+    super();
+  }
 
   ngOnInit(): void {
     this.title.setTitle('AuthorsGuidelines: Jabonline');
-    this.api.authorsGuidelines().subscribe((res: any) => { this.authorsGuideline = res.authorsGuidelines; });
+    this.subscriptions.push(
+      this.api.authorsGuidelines().subscribe((res: any) => { this.authorsGuideline = res.authorsGuidelines; })
+    );
   }
 
   ngAfterViewChecked() {

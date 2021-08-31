@@ -8,6 +8,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Address } from 'src/app/address';
 import { ApiServiceService } from 'src/app/api-service.service';
+import { Unsubscriber } from 'src/app/utility/unsubscriber';
 import { DialogData } from '../../current-issue/current-issue.component';
 
 @Component({
@@ -15,8 +16,11 @@ import { DialogData } from '../../current-issue/current-issue.component';
   templateUrl: './trending-articles.component.html',
   styleUrls: ['./trending-articles.component.css'],
 })
-export class TrendingArticlesComponent implements OnInit {
+export class TrendingArticlesComponent extends Unsubscriber implements OnInit {
   getTrendingArticlesArticleApi: any;
+  pdfpath = this.add.pdfPath;
+  imagepath = this.add.imagesPath;
+  assets = this.add.assets;
 
   constructor(
     public dialog: MatDialog,
@@ -24,20 +28,21 @@ export class TrendingArticlesComponent implements OnInit {
     private add: Address,
     private router: Router,
     private title: Title
-  ) {}
-  pdfpath = this.add.pdfPath;
-  imagepath = this.add.imagesPath;
-  assets = this.add.assets;
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.title.setTitle('TrendingArticles: Jabonline');
-    this.service.getTrendingArticlesArticleApi().subscribe((res) => {
-      this.getTrendingArticlesArticleApi = res.getTrending_articlesApi;
-    });
+    this.subscriptions.push(
+      this.service.getTrendingArticlesArticleApi().subscribe((res) => {
+        this.getTrendingArticlesArticleApi = res.getTrending_articlesApi;
+      })
+    );
   }
 
   openDialog(data1: any): void {
-    const dialogRef = this.dialog.open(DialogImages, {
+    this.dialog.open(DialogImages, {
       data: { image: data1 },
     });
   }
@@ -54,16 +59,20 @@ export class TrendingArticlesComponent implements OnInit {
   }
 
   countView(id: any) {
-    this.service.countView(id).subscribe((res) => {
-      console.log(res);
-    });
+    this.subscriptions.push(
+      this.service.countView(id).subscribe((res) => {
+        console.log(res);
+      })
+    );
   }
 
   countDownload(url: any, id: any) {
     window.open(url, '_blank');
-    this.service.countDownload(id).subscribe((res) => {
-      console.log(res);
-    });
+    this.subscriptions.push(
+      this.service.countDownload(id).subscribe((res) => {
+        console.log(res);
+      })
+    );
   }
 }
 
@@ -75,7 +84,7 @@ export class DialogImages {
   constructor(
     public dialogRef: MatDialogRef<DialogImages>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

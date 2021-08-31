@@ -1,14 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, Inject, Input, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
-import { Chart } from 'chart.js';
 import { ApiServiceService } from 'src/app/api-service.service';
+import { Unsubscriber } from 'src/app/utility/unsubscriber';
 
 @Component({
   selector: 'app-article-metrics',
   templateUrl: './article-metrics.component.html',
   styleUrls: ['./article-metrics.component.css']
 })
-export class ArticleMetricsComponent implements OnInit, AfterViewInit {
+export class ArticleMetricsComponent extends Unsubscriber implements OnInit, AfterViewInit {
 
   @ViewChild('metrics') metrics: any;
   @Input() articleMetricId: any;
@@ -20,10 +20,13 @@ export class ArticleMetricsComponent implements OnInit, AfterViewInit {
   download = [];
   views = [];
   getTotalMetric: any;
+
   constructor(
     private api: ApiServiceService,
     @Inject(PLATFORM_ID) private platformId: any
-  ) { }
+  ) {
+    super();
+  }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -33,61 +36,24 @@ export class ArticleMetricsComponent implements OnInit, AfterViewInit {
         this.color1.push('#17a2b8');
         this.color2.push('#fd7e14');
       }
-      let myChart = new Chart(this.articleMetrics, {
-        type: 'line',
-        data: {
-          labels: this.Date,
-          datasets: [{
-            label: 'Abstract',
-            data: this.views,
-            backgroundColor: this.color1,
-            borderColor: ['#17a2b8'],
-            borderWidth: 1,
-            fill: false,
-            //lineTension: 0
-          },
-          {
-            label: 'PDF Download',
-            data: this.download,
-            backgroundColor: this.color2,
-            borderColor: ['#fd7e14'],
-            borderWidth: 1,
-            fill: false,
-            //lineTension: 0
-          }
-          ],
-        },
-        options: {
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }
-      });
     }
   }
 
-
   ngOnInit(): void {
-    this.api.getArticleMetrics(this.articleMetricId).subscribe(res => {
+    this.subscriptions.push(
+      this.api.getArticleMetrics(this.articleMetricId).subscribe(res => {
 
-      for (let i = 0; i < res.length; i++) {
-        let date1 = res[i].monthName + ' ' + res[i].yearname;
-        this.Date.push(date1);
-        this.download.push(res[i].Download);
-        this.views.push(res[i].View);
-      }
-    });
+        for (let i = 0; i < res.length; i++) {
+          let date1 = res[i].monthName + ' ' + res[i].yearname;
+          this.Date.push(date1);
+          this.download.push(res[i].Download);
+          this.views.push(res[i].View);
+        }
+      }),
 
-    this.api.getTotalMetrics(this.articleMetricId).subscribe(res => {
-      this.getTotalMetric = res;
-    });
+      this.api.getTotalMetrics(this.articleMetricId).subscribe(res => {
+        this.getTotalMetric = res;
+      })
+    );
   }
-
-
-
-
 }

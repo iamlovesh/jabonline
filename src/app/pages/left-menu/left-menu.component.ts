@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from 'src/app/api-service.service';
+import { Unsubscriber } from 'src/app/utility/unsubscriber';
 
 @Component({
   selector: 'app-left-menu',
   templateUrl: './left-menu.component.html',
   styleUrls: ['./left-menu.component.css']
 })
-export class LeftMenuComponent implements OnInit {
+export class LeftMenuComponent extends Unsubscriber implements OnInit {
 
   policiesList = Array();
 
@@ -52,10 +53,20 @@ export class LeftMenuComponent implements OnInit {
     },
   ];
 
-  constructor(private api: ApiServiceService) { } 
+  constructor(
+    private api: ApiServiceService
+  ) {
+    super();
+   } 
 
   ngOnInit(): void {
-    this.api.getPolicies().subscribe((res: any) => { for (let dataOfPolicies of res.getPolicies){this.policiesList.push(dataOfPolicies);}});
+    this.subscriptions.push(
+      this.api.getPolicies().subscribe((res: any) => {
+        for (let dataOfPolicies of res.getPolicies){
+          this.policiesList.push(dataOfPolicies);
+        }
+      })
+    );
   }
 
 }

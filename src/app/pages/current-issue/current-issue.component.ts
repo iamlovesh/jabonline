@@ -6,6 +6,7 @@ import {
 } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Unsubscriber } from 'src/app/utility/unsubscriber';
 import { ApiServiceService } from '../../../app/api-service.service';
 import { Address } from '../../address';
 
@@ -18,10 +19,14 @@ export interface DialogData {
   templateUrl: './current-issue.component.html',
   styleUrls: ['./current-issue.component.css'],
 })
-export class CurrentIssueComponent implements OnInit {
+export class CurrentIssueComponent extends Unsubscriber implements OnInit {
   currentIssueArticles: any;
   currentIssueArticlesSubject: any;
   currentIssueArticleDetails: any;
+
+  pdfpath = this.add.pdfPath;
+  imagepath = this.add.imagesPath;
+  assets = this.add.assets;
 
   constructor(
     public dialog: MatDialog,
@@ -29,21 +34,23 @@ export class CurrentIssueComponent implements OnInit {
     private add: Address,
     private router: Router,
     private title: Title
-  ) {}
-  pdfpath = this.add.pdfPath;
-  imagepath = this.add.imagesPath;
-  assets = this.add.assets;
+  ) {
+    super();
+  }
+
   ngOnInit(): void {
     this.title.setTitle('CurrentIssue: Jabonline');
-    this.service.currentIssueArticles().subscribe((res: any) => {
-      this.currentIssueArticles = res.currentIssueArticle;
-    });
-    this.service.currentIssueArticlesSubject().subscribe((res: any) => {
-      this.currentIssueArticlesSubject = res.currentIssueArticleSubject;
-    });
-    this.service.currentIssueArticleDetails().subscribe((res: any) => {
-      this.currentIssueArticleDetails = res.currentIssueArticleDetails;
-    });
+    this.subscriptions.push(
+      this.service.currentIssueArticles().subscribe((res: any) => {
+        this.currentIssueArticles = res.currentIssueArticle;
+      }),
+      this.service.currentIssueArticlesSubject().subscribe((res: any) => {
+        this.currentIssueArticlesSubject = res.currentIssueArticleSubject;
+      }),
+      this.service.currentIssueArticleDetails().subscribe((res: any) => {
+        this.currentIssueArticleDetails = res.currentIssueArticleDetails;
+      })
+    );
   }
 
   abstract(id: any, idss: any) {
@@ -58,20 +65,24 @@ export class CurrentIssueComponent implements OnInit {
   }
 
   countView(id: any) {
-    this.service.countView(id).subscribe((res) => {
-      console.log(res);
-    });
+    this.subscriptions.push(
+      this.service.countView(id).subscribe((res) => {
+        console.log(res);
+      })
+    );
   }
 
   countDownload(url: any, id: any) {
     window.open(url, '_blank');
-    this.service.countDownload(id).subscribe((res) => {
-      console.log(res);
-    });
+    this.subscriptions.push(
+      this.service.countDownload(id).subscribe((res) => {
+        console.log(res);
+      })
+    );
   }
 
   openDialog(data1: any): void {
-    const dialogRef = this.dialog.open(DialogImages, {
+    this.dialog.open(DialogImages, {
       data: { image: data1 },
     });
   }
@@ -85,7 +96,7 @@ export class DialogImages {
   constructor(
     public dialogRef: MatDialogRef<DialogImages>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

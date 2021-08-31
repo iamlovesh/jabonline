@@ -5,13 +5,14 @@ import { Observable, range } from 'rxjs';
 import { SwiperOptions } from 'swiper';
 import { Address } from '../address';
 import { ApiServiceService } from '../api-service.service';
+import { Unsubscriber } from '../utility/unsubscriber';
 
 @Component({
   selector: 'app-index',
   templateUrl: './index.component.html',
   styleUrls: ['./index.component.css'],
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent extends Unsubscriber implements OnInit {
   sliderCard = [
     {
       title: 'Latest Articles',
@@ -98,41 +99,47 @@ export class IndexComponent implements OnInit {
   getEditorsChoice: any;
   statisticsRecords: any;
 
+  imagePath = this.add.imagesPath;
+  assetsI = this.add.assetsI;
+  assets = this.add.assets;
+
   constructor(
     private api: ApiServiceService,
     private add: Address,
     private title: Title,
     private router: Router
-  ) {}
-  imagePath = this.add.imagesPath;
-  assetsI = this.add.assetsI;
-  assets = this.add.assets;
+  ) {
+    super();
+  }
+
   ngOnInit(): void {
     this.title.setTitle('JABB');
-    this.api.onlinefirstArticles().subscribe((res: any) => {
-      this.onlinefirstArticle = res.onlinefirstArticle;
-    });
-    this.api.currentIssueArticles().subscribe((res) => {
-      this.currentIssueArticles = res.currentIssueArticle;
-    });
-    this.api.getMostViewArticleApi().subscribe((res) => {
-      this.getMostViewArticleApi = res.getMostViewArticleApi;
-    });
-    this.api.getTrending_articles().subscribe((res) => {
-      this.getTrending_articles = res.getTrending_articles;
-    });
-    this.api.newsAnnouncements().subscribe((res) => {
-      this.newsAnnouncements = res.newsAnnouncements;
-    });
-    this.api.journamMatrix().subscribe((res) => {
-      this.journamMatrix = [res];
-    });
-    this.api.getEditorsChoice().subscribe((res) => {
-      this.getEditorsChoice = res.getEditorsChoice;
-    });
-    this.api.getStatistics().subscribe((res) => {
-      this.statisticsRecords = [res];
-    });
+    this.subscriptions.push(
+      this.api.onlinefirstArticles().subscribe((res: any) => {
+        this.onlinefirstArticle = res.onlinefirstArticle;
+      }),
+      this.api.currentIssueArticles().subscribe((res) => {
+        this.currentIssueArticles = res.currentIssueArticle;
+      }),
+      this.api.getMostViewArticleApi().subscribe((res) => {
+        this.getMostViewArticleApi = res.getMostViewArticleApi;
+      }),
+      this.api.getTrending_articles().subscribe((res) => {
+        this.getTrending_articles = res.getTrending_articles;
+      }),
+      this.api.newsAnnouncements().subscribe((res) => {
+        this.newsAnnouncements = res.newsAnnouncements;
+      }),
+      this.api.journamMatrix().subscribe((res) => {
+        this.journamMatrix = [res];
+      }),
+      this.api.getEditorsChoice().subscribe((res) => {
+        this.getEditorsChoice = res.getEditorsChoice;
+      }),
+      this.api.getStatistics().subscribe((res) => {
+        this.statisticsRecords = [res];
+      })
+    );
   }
 
   editorChoice(id: any) {

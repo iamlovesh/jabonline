@@ -1,6 +1,6 @@
 import 'zone.js/dist/zone-node';
 
-import { createWindow }  from 'domino';
+import { createWindow } from 'domino';
 import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
@@ -8,11 +8,13 @@ import { join } from 'path';
 import { AppServerModule } from './src/main.server';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync, readFileSync } from 'fs';
+import { Cache } from 'memory-cache';
 
 import * as compression from 'compression';
 
 const indexTemplate = readFileSync('dist/browser/index.html').toString();
 const win = createWindow(indexTemplate);
+const cache = new Cache();
 
 (global as any).window = win;
 (global as any).document = win.document;
@@ -47,7 +49,19 @@ export function app(): express.Express {
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
     res.setHeader('X-Frame-Options', 'DENY');
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    const entry = cache.get(req.originalUrl);
+    if (entry) {
+      res.send(entry);
+    } else {
+      res.render(
+        indexHtml,
+        { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] },
+        (err, html) => {
+          cache.put(req.originalUrl, html);
+          res.send(html)
+        }
+      );
+    }
   });
 
   return server;

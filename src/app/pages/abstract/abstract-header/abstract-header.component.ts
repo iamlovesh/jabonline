@@ -3,13 +3,14 @@ import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/address';
 import { ApiServiceService } from 'src/app/api-service.service';
+import { Unsubscriber } from 'src/app/utility/unsubscriber';
 
 @Component({
   selector: 'app-abstract-header',
   templateUrl: './abstract-header.component.html',
   styleUrls: ['./abstract-header.component.css'],
 })
-export class AbstractHeaderComponent implements OnInit, AfterViewInit {
+export class AbstractHeaderComponent extends Unsubscriber implements OnInit, AfterViewInit {
   id: any;
   abstractHeader: any;
   fileSize: any;
@@ -17,6 +18,11 @@ export class AbstractHeaderComponent implements OnInit, AfterViewInit {
   authorAffiliation: any;
   found: any;
   authorsName: any;
+  addd = this.add;
+  assets = this.add.assets;
+  pdfPath$ = this.add.pdfPath;
+  _basePath$ = document.location.href;
+
   constructor(
     private add: Address,
     private routes: ActivatedRoute,
@@ -24,39 +30,41 @@ export class AbstractHeaderComponent implements OnInit, AfterViewInit {
     private metaTag: Meta,
     private api: ApiServiceService,
     private router: Router
-  ) {}
-  addd = this.add;
-  assets = this.add.assets;
-  pdfPath$ = this.add.pdfPath;
-  _basePath$ = document.location.href;
-  ngOnInit(): void {
-    this.routes.queryParams.subscribe(
-      (res) => {
-        this.id = res.article_id;
-      },
-      (err) => {
-        console.log(err.message);
-      }
-    );
-    this.api.abstractHeader(this.id).subscribe(
-      (res: any) => {
-        this.abstractHeader = res.abstractHeader;
-        this.titleService.setTitle(
-          res.abstractHeader[0].title.replace(/<.*?>/g, '')
-        );
-        // this.abstractHeader = res.abstractHeader[1]; this.found = res.abstractHeader; this.fileSize = [res.abstractHeader[0].fileSize]; this.authors = res.abstractHeader[1].authors.split(","); this.authorsName = res.abstractHeader[2].Authors;
-      },
-      (err) => {
-        console.log(err.message);
-      }
-    );
-    this.api.authorAffiliation(this.id).subscribe((res: any) => {
-      this.authorAffiliation = res.authorAffiliation[0].description;
-    });
+  ) {
+    super();
+  }
 
-    this.api.abstractMeta(this.id).subscribe((res: any) => {
-      this.metaTag.addTags(res);
-    });
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.routes.queryParams.subscribe(
+        (res) => {
+          this.id = res.article_id;
+        },
+        (err) => {
+          console.log(err.message);
+        }
+      ),
+
+      this.api.abstractHeader(this.id).subscribe(
+        (res: any) => {
+          this.abstractHeader = res.abstractHeader;
+          this.titleService.setTitle(
+            res.abstractHeader[0].title.replace(/<.*?>/g, '')
+          );
+        },
+        (err) => {
+          console.log(err.message);
+        }
+      ),
+
+      this.api.authorAffiliation(this.id).subscribe((res: any) => {
+        this.authorAffiliation = res.authorAffiliation[0].description;
+      }),
+
+      this.api.abstractMeta(this.id).subscribe((res: any) => {
+        this.metaTag.addTags(res);
+      })
+    );
   }
 
   ngAfterViewInit() {
@@ -87,7 +95,6 @@ export class AbstractHeaderComponent implements OnInit, AfterViewInit {
   }
 
   previous() {
-    // this.routes.queryParams.subscribe(res => { this.id = res.id }, err => { console.log(err.message); });
     this.router
       .navigate(['/abstract.php'], {
         queryParams: { article_id: this.id - 1, sts: 2 },
@@ -95,12 +102,9 @@ export class AbstractHeaderComponent implements OnInit, AfterViewInit {
       .then(() => {
         window.location.reload();
       });
-    // this.api.abstractHeader(this.id - 1).subscribe((res: any) => { this.abstractHeader = res.abstractHeader;}, err => { console.log(err.message); });
-    // this.api.authorAffiliation(this.id-1).subscribe((res: any) => { this.authorAffiliation = res.authorAffiliation[0];}, err => { console.log(err.message); });
   }
 
   next() {
-    // this.routes.queryParams.subscribe(res => { this.id = res.id }, err => { console.log(err.message); });
     this.router
       .navigate(['/abstract.php'], {
         queryParams: { article_id: +this.id + +1, sts: 2 },
@@ -108,19 +112,19 @@ export class AbstractHeaderComponent implements OnInit, AfterViewInit {
       .then(() => {
         window.location.reload();
       });
-    // this.api.abstractHeader(+this.id + +1).subscribe((res: any) => { this.abstractHeader = res.abstractHeader;}, err => { console.log(err.message); });
-    // this.api.authorAffiliation(+this.id + +1).subscribe((res: any) => { this.authorAffiliation = res.authorAffiliation[0];}, err => { console.log(err.message); });
   }
 
   countDownload(url: any, id: any) {
     window.open(url, '_blank');
-    this.api.countDownload(id).subscribe(
-      (res) => {
-        res;
-      },
-      (err) => {
-        console.log(err.message);
-      }
+    this.subscriptions.push(
+      this.api.countDownload(id).subscribe(
+        (res) => {
+          res;
+        },
+        (err) => {
+          console.log(err.message);
+        }
+      )
     );
   }
 
